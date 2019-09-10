@@ -20,14 +20,14 @@ class App extends Component {
   getEvents = () => {
     axios({
       method: "GET",
-      url: "https://app.ticketmaster.com/discovery/v2/events",
+      url: "https://app.ticketmaster.com/discovery/v2/events.json",
       dataResponse: "json",
       params: {
-        format: "json",
         apikey: "RzVQVthdwCGvl8TaJVeNTb3nxVceKaFu"
       }
     }).then(results => {
-      results = results.data.events;
+      results = results.data._embedded.events;
+      console.log(results);
       this.setState({
         events: results,
         isLoading: false
@@ -37,6 +37,7 @@ class App extends Component {
 
   componentDidMount () {
     this.getEvents();
+    console.log("hello from CDM");
   }
 
   render() {
