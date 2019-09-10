@@ -8,6 +8,8 @@ class Main extends Component {
         <p>Testing Matt's Branch!</p>
         <p>Testing Alexa Woloszuk</p>
         <p>Testing Jeff Rudd</p>
+        <p>Testing Pritika Roy</p>
+
 
       </main>
     )
