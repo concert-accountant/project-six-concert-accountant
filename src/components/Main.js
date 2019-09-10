@@ -9,8 +9,6 @@ class Main extends Component {
         <p>Testing Alexa Woloszuk</p>
         <p>Testing Jeff Rudd</p>
         <p>Testing Pritika Roy</p>
-
-
       </main>
     )
   }
