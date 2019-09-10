@@ -9,7 +9,10 @@ import "./App.css";
 class App extends Component {
   constructor() {
     super();
-    this.state = {};
+    this.state = {
+      apiKey: "RzVQVthdwCGvl8TaJVeNTb3nxVceKaFu",
+      secret: "6RHq8MbsPw41lPHG"
+    };
   }
   render() {
     return (
