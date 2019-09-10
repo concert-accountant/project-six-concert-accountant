@@ -5,8 +5,9 @@ class Main extends Component {
     return (
       <main>
         <p>Hello from Main</p>
-        <p>Testing Matt Branch</p>
-        <p>Testing Alexa Woloszuk part2</p>
+        <p>Testing Matt's Branch!</p>
+        <p>Testing Alexa Woloszuk</p>
+
       </main>
     )
   }
