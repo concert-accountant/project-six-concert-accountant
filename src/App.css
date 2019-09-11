@@ -11,7 +11,6 @@ a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,c
 /* Main Styling */
 
 /* Global Styling */
-
 html {
   font-size: 125%;
 }
@@ -25,6 +24,7 @@ img {
   margin: 0 auto;
 }
 
+/* Specific Styling */
 h1 {
   font-size: 5rem;
 }
@@ -40,6 +40,7 @@ main p, .eventContainer p {
   justify-content: center;
   align-items: center;
 }
+
 .eventContainer {
   display: flex;
   flex-direction: column;
