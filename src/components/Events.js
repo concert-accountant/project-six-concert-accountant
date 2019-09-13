@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Search from './Search';
 import axios from "axios";
 
 class Events extends Component {
@@ -61,6 +62,7 @@ class Events extends Component {
   render() {
     return (
       <main>
+        <Search />
         <div className="events">
           {this.state.isLoading ? (
             <p>...Loading</p>

@@ -74,7 +74,7 @@ main p, .eventContainer p {
   margin: 10px;
 }
 
-.userInputForm {
+.userInputForm, .search {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -82,7 +82,7 @@ main p, .eventContainer p {
   margin-top: 1rem;
 }
 
-.userInputForm input {
+input {
   padding: .5rem;
   margin: .5rem;
   width: 35%;
@@ -101,7 +101,7 @@ main p, .eventContainer p {
   border: .5px solid grey;
 }
 
-.userInputForm button {
+button {
   border: none;
   background-color: #87C08D;
   color: white;
@@ -109,7 +109,7 @@ main p, .eventContainer p {
   border-radius: 10px;
 }
 
-.userInputForm button:hover {
+button:hover {
   color: #436775;
   background-color: #CBFCF0;
   transition: transform 1.3s ease-in-out;
