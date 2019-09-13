@@ -15,10 +15,7 @@ class UserDetails extends Component {
     e.preventDefault();
     
         this.setState({
-            userName: e.target.value,
-            listName: e.target.value,
-            location: e.target.value,
-            budget: e.target.value
+            [e.target.name]: e.target.value,
         })
     };
 
