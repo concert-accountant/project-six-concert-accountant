@@ -32,18 +32,18 @@ class UserDetails extends Component {
   render() {
     return (  
       <form className="userInputForm" onSubmit={this.handleSubmit}>
-        <label htmlFor="userName">Name</label>
-        <input type="text" id="name" placeholder="name" name="userName" onChange={this.handleInputChange}></input>
+        <label htmlFor="userName" className="visuallyHidden">Name</label>
+        <input type="text" id="name" placeholder="Name" name="userName" onChange={this.handleInputChange}></input>
 
-        <label htmlFor="listName">List Name</label>
-        <input type="text" id="list" placeholder="list" name="listName" onChange={this.handleInputChange}></input>
+        <label htmlFor="listName" className="visuallyHidden">List Name</label>
+        <input type="text" id="list" placeholder="List" name="listName" onChange={this.handleInputChange}></input>
 
-        <label htmlFor="location">Location</label>
-        <input type="text" id="location" placeholder="location" name="location" onChange={this.handleInputChange}></input>
+        <label htmlFor="location" className="visuallyHidden">Location</label>
+        <input type="text" id="location" placeholder="Location" name="location" onChange={this.handleInputChange}></input>
 
-        <label htmlFor="budget">Budget</label>
+        <label htmlFor="budget" className="visuallyHidden">Budget</label>
         <select name="budget" id="budget" onChange={this.handleInputChange}>
-            <option value="">select budget</option>
+            <option value="">Select Budget</option>
             <option value="100">$100</option>
             <option value="200">$200</option>
             <option value="300">$300</option>
