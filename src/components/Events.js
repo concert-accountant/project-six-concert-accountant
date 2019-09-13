@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Search from './Search';
 import axios from "axios";
+import firebase from "../firebase";
 
 class Events extends Component {
   constructor() {
@@ -14,8 +15,28 @@ class Events extends Component {
       location: "Toronto",
       priceInfo: "",
       minPrice: 0,
-      maxPrice: 1
+      maxPrice: 1,
+      test: [],
+      userInput: '',
     };
+  }
+
+  handleChange = (e) => {
+    this.setState({userInput: e.target.value})
+  }
+
+  handleClick = (e) => {
+    e.preventDefault();
+    const dbRef = firebase.database().ref();
+    dbRef.push(this.state.userInput);
+    this.setState({
+      userInput: ""
+    })
+  }
+
+  removeTestItem(testItemId) {
+    const dbRef = firebase.database().ref();
+    dbRef.child(testItemId).remove();
   }
 
   getEvents = () => {
@@ -57,11 +78,47 @@ class Events extends Component {
 
   componentDidMount() {
     this.getEvents();
+    
+    const dbRef = firebase.database().ref();
+    dbRef.on('value', (response) => {
+      const newState = [];
+      const data = response.val();
+      for (let key in data) {
+        newState.push({key: key, name: data[key]});
+      }
+      this.setState({
+        test: newState
+      });
+      // console.log(response.val());
+    });
   }
 
   render() {
     return (
       <main>
+        <div>
+          {this.state.test.map((testItem) => {
+            return (
+            <li key={testItem.key}>
+              {/* <p>{testItem.name} - {testItem.key}</p>
+            </li>
+            <li key={i}> */}
+              <p>{testItem.name}</p>
+              <button onClick={() => this.removeTestItem(testItem.key)}> Remove Item </button>
+            </li>)
+          })}
+          <form action="submit">
+            <label htmlFor="newTestItem">Add a test item to your test</label>
+            <input 
+            type="text" 
+            id="newItem" 
+            onChange={this.handleChange}
+            value={this.state.userInput}/>     
+
+            <button onClick={this.handleClick}>Add Test Item</button>
+
+          </form>
+        </div>
         <Search />
         <div className="events">
           {this.state.isLoading ? (
