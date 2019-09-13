@@ -48,39 +48,11 @@ class Events extends Component {
     });
     const withPrice = priceResults.filter(hasPrice => {
       return hasPrice.priceRanges[0].min && hasPrice.priceRanges[0].max;
-    });    
+    });
     this.setState({
       filteredEvents: withPrice
     });
-    if (this.state.filteredEvents) {
-      console.log("filtered events bbbby", this.state.filteredEvents);
-    //   this.setState.minPrice = this.state.filteredEvents.priceRanges[0].min;
-    //   this.setState.maxPrice = this.state.filteredEvents.priceRanges[0].max;
-    //   if (this.state.minPrice === this.state.maxPrice) {
-    //     this.setState.priceInfo = `Price: ${this.state.minPrice}`;
-    //   } else {
-    //     this.setState.priceInfo = `Price Range: ${this.state.minPrice} - ${this.state.maxPrice}`;
-    //   }
-    // } else {
-    //   this.setState.priceInfo = "Price Unavailable";
-    }
   };
-
-  // eventPrices = events => {
-  //   let priceInfo = "";
-  //   if (events.priceRanges) {
-  //     let minPrice = events.priceRanges[0].min;
-  //     let maxPrice = events.priceRanges[0].max;
-  //     if (minPrice === maxPrice) {
-  //       priceInfo = `Price: ${minPrice}`;
-  //     } else {
-  //       priceInfo = `Price Range: ${minPrice} - ${maxPrice}`;
-  //     }
-  //   } else {
-  //     priceInfo = "Price Unavailable";
-  //   }
-  //   return priceInfo;
-  // };
 
   componentDidMount() {
     this.getEvents();
@@ -94,16 +66,19 @@ class Events extends Component {
             <p>...Loading</p>
           ) : (
             this.state.filteredEvents.map(event => {
-              // console.log("priceInfo:", this.state.priceInfo);
-              // console.log(event.priceRanges[0].min);
               return (
                 <div className="eventContainer" key={event.id}>
                   <h3>Title: {event.name}</h3>
                   <p>Start Date: {event.dates.start.localDate}</p>
                   <p>Info: {event.info}</p>
-                  <p>{this.state.priceInfo}</p>
-                  {/* <p>Min price: {event.priceRanges[0].min}</p> */}
-                  {/* <p>Max price: {event.priceRanges[0].max}</p> */}
+                  {event.priceRanges[0].min === event.priceRanges[0].max ? (
+                    <p>the price: {event.priceRanges[0].min}</p>
+                  ) : (
+                    <p>
+                      The price range: {event.priceRanges[0].min} -{" "}
+                      {event.priceRanges[0].max}
+                    </p>
+                  )}
                   <p>
                     <a href={event.url}>TicketMaster Link</a>
                   </p>
