@@ -96,29 +96,8 @@ class Events extends Component {
   render() {
     return (
       <main>
-        <div>
-          {this.state.test.map((testItem) => {
-            return (
-            <li key={testItem.key}>
-              {/* <p>{testItem.name} - {testItem.key}</p>
-            </li>
-            <li key={i}> */}
-              <p>{testItem.name}</p>
-              <button onClick={() => this.removeTestItem(testItem.key)}> Remove Item </button>
-            </li>)
-          })}
-          <form action="submit">
-            <label htmlFor="newTestItem">Add a test item to your test</label>
-            <input 
-            type="text" 
-            id="newItem" 
-            onChange={this.handleChange}
-            value={this.state.userInput}/>     
-
-            <button onClick={this.handleClick}>Add Test Item</button>
-
-          </form>
-        </div>
+        <div className = "wrapper">
+        
         <Search />
         <div className="events">
           {this.state.isLoading ? (
@@ -142,10 +121,38 @@ class Events extends Component {
                     <a href={event.url}>TicketMaster Link</a>
                   </p>
                   <img src={event.images[0].url} alt={event.name} />
+                  
+                  <div>
+                    {this.state.test.map((testItem) => {
+                      return (
+                        <li key={testItem.key}>
+                          {/* <p>{testItem.name} - {testItem.key}</p>
+            </li>
+            <li key={i}> */}
+                          <p>{testItem.name}</p>
+                          <button onClick={() => this.removeTestItem(testItem.key)}> Remove Item </button>
+                        </li>)
+                    })}
+                    <form action="submit">
+                      <label htmlFor="newTestItem">Add a test item to your test</label>
+                      <input
+                        type="text"
+                        id="newItem"
+                        onChange={this.handleChange}
+                        value={this.state.userInput} />
+
+                      <button onClick={this.handleClick}>Add Test Item</button>
+
+                    </form>
+                  </div>
+
+
+
                 </div>
               );
             })
           )}
+        </div>
         </div>
       </main>
     );
