@@ -13,6 +13,7 @@ a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,c
 /* Global Styling */
 html {
   font-size: 125%;
+  height: 100%;
 }
 
 body {
@@ -24,39 +25,89 @@ img {
   width: 100%;
 }
 
+.wrapper {
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
 .App {
   text-align: center;
-  margin: 0 auto;
+  background: red;
 }
 
 /* Specific Styling */
 h1 {
   font-size: 4rem;
-  margin-top: 2rem;
+  /* margin-top: 2rem; */
   font-family: 'Kanit', sans-serif;
   font-weight: 700;
+}
+
+h2 {
+  font-size: 3rem;
+  font-family: 'Kanit', sans-serif;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.searchResults {
+  font-size: 2.4rem;
+  font-family: 'Kanit', sans-serif;
+  font-weight: 700;
+  margin: 1rem;
 }
 
 main p, .eventContainer p {
   margin: 6px 0;
 }
 
-/* header {
+header {
+  background: url('./assets/aditya-chinchure-ZhQCZjr9fHo-unsplash.jpg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
   height: 100vh;
-} */
+}
 
 .navBar {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 10px;
+  align-items: center;
+  /* margin-bottom: 10px;   */
+  padding: 5px;
+  background: #436775;
+  color: white;
+}
+
+.navBar h4 {
+  font-family: 'Kanit', sans-serif;
+  font-weight: 700;
+  padding-left: 12px;
 }
 
 .navBar ul {
   display: flex;
+  text-decoration: none;
 }
 
 .navBar li {
-  padding: 0 6px;
+  padding: 8px;
+  margin: 0 4px;
+}
+
+.navBar li:hover {
+  background: #CBFCF0;
+  border: none;
+  border-radius: 40px;
+}
+
+.navBar a {
+  text-decoration: none;
+  color: white;
+}
+
+.navBar a:hover {
+  color: #436775;
 }
 
 .events {
@@ -82,23 +133,43 @@ main p, .eventContainer p {
   margin-top: 1rem;
 }
 
+.userInputForm p {
+  width: 500px;
+  text-align: center;
+  padding: 12px;
+}
+
+.userInputForm {
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 20px auto 0;
+  padding: 15px 0;
+  background: white;
+  border: 2px solid teal;
+}
+
 input {
   padding: .5rem;
   margin: .5rem;
-  width: 35%;
-  border: .5px solid grey;
+  width: 80%;
+  border: none;
+  border-bottom: 2px solid #87C08D;
 }
 
 .userInputForm select {
   padding: .5rem;
   margin: .5rem .5rem 2rem;
-  width: 35%;
+  width: 80%;
   appearance: none;
-  background-image: url('./assets/dropDownArrow.png');
+  background-image: url('./assets/arrow.png');
   background-repeat: no-repeat, repeat;
   background-position: right .7em top 50%, 0 0;
   background-size: .65em auto, 100%;
-  border: .5px solid grey;
+  border: none;
+  border-bottom: 2px solid #87C08D;
 }
 
 button {
@@ -106,7 +177,7 @@ button {
   background-color: #87C08D;
   color: white;
   padding: 1rem 2rem;
-  border-radius: 10px;
+  border-radius: 40px;
 }
 
 button:hover {

@@ -15,12 +15,12 @@ class App extends Component {
       <Router>
         <div className="App">
         <NavBar />
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route path="/myList" component={UserList} />
-          <Route path="/publishedLists" component={PublishedLists} />
-          <Route path="/events" component={Events} />
-          <Footer />
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route path="/myList" component={UserList} />
+            <Route path="/publishedLists" component={PublishedLists} />
+            <Route path="/events" component={Events} />
+            <Footer />
           </Switch>
         </div>
       </Router>
