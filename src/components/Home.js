@@ -3,11 +3,11 @@ import UserDetails from "./UserDetails";
 
 class Home extends Component {
   render() {
-    // const {} = this.props;
     return (
       <div>
         <header>
           <h1>Concert Accountant</h1>
+          {/* <p>Shows are expensive! Let us help you create a list of shows that fit your budget. Fill out the info below and let's get started creating the perfect list for you.</p> */}
           <UserDetails getUserInput={this.getUserInput} />
         </header>
       </div>

@@ -10,7 +10,7 @@ class Search extends Component {
                 <button className="" type="submit" value="Submit">Find Events</button>
         
                 {/* <h2>`{this.state.userName}'s Results`</h2>  */}
-                <h2>Search Results</h2>
+                <h3 className="searchResults">Search Results</h3>
             </div>
         )
     }
