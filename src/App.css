@@ -15,6 +15,11 @@ html {
   font-size: 125%;
 }
 
+body {
+  font-family: 'Kanit', sans-serif;
+  font-weight: 300;
+}
+
 img {
   width: 100%;
 }
@@ -26,7 +31,10 @@ img {
 
 /* Specific Styling */
 h1 {
-  font-size: 5rem;
+  font-size: 4rem;
+  margin-top: 2rem;
+  font-family: 'Kanit', sans-serif;
+  font-weight: 700;
 }
 
 main p, .eventContainer p {
@@ -64,4 +72,11 @@ main p, .eventContainer p {
   flex-direction: column;
   width: 40%;
   margin: 10px;
+}
+
+.userInputForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }

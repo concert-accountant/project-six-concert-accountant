@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import UserDetails from './UserDetails';
 
 class Header extends Component {
+
   render() {
     // const {} = this.props;
     return (
@@ -10,7 +12,7 @@ class Header extends Component {
           <h4>Concert Accountant</h4>
           <ul>
             <li>
-              <Link to="/">Home</Link>
+              <Link to="/home">Home</Link>
             </li>
             <li>
               <Link to="/events">Search Events</Link>
