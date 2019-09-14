@@ -16,7 +16,8 @@ class Events extends Component {
       baseUrl:
         "https://app.ticketmaster.com/discovery/v2/events.json?&apikey=RzVQVthdwCGvl8TaJVeNTb3nxVceKaFu&classificationName=music",
       location: "Toronto",
-      // query: "&keyword=",
+      classification: "music",
+      query: "&keyword=",
       priceInfo: "",
       minPrice: 0,
       maxPrice: 1,
@@ -36,7 +37,7 @@ class Events extends Component {
       params: {
         apikey: "RzVQVthdwCGvl8TaJVeNTb3nxVceKaFu",
         city: this.state.location,
-        classificationName: "music"
+        classificationName: this.state.classification
       }
     }).then(results => {
       results = results.data._embedded.events;
@@ -95,17 +96,17 @@ class Events extends Component {
   searchSubmit = e => {
     e.preventDefault();
     //add query into const and url between the two
-    const { baseUrl, searchTerms } = this.state;
+    const { baseUrl, query, searchTerms } = this.state;
     this.setState(
       () => {
         return {
-          url: `${baseUrl}${searchTerms}`,
+          url: `${baseUrl}${query}${searchTerms}`,
           searchTerms: ""
         };
       },
       () => {
-        console.log(this.state.url);
         this.getEvents(this.state.url);
+        console.log("updated url", this.state.url);
       }
     );
   };
