@@ -119,14 +119,23 @@ class Events extends Component {
   };
 
   //Function to push userInput data to Firebase
+
+
   handleClick = e => {
+
     e.preventDefault();
+
     const dbRef = firebase.database().ref();
-    dbRef.push(this.state.userInput);
+
     this.setState({
-      userInput: ""
-    });
-  };
+
+      userInput: e.target.value
+
+    }, () => dbRef.push(this.state.userInput));
+    console.log(this.state.userInput)
+
+  }
+
 
   //Function to remove items when remove button is clicked and store in firebase
   removeTestItem(testItemId) {
@@ -181,15 +190,14 @@ class Events extends Component {
                     <p>
                       <a href={event.url}>TicketMaster Link</a>
                     </p>
+                    
                     <img src={event.images[2].url} alt={event.name} />
 
                     <div>
                       {this.state.test.map(testItem => {
                         return (
                           <li key={testItem.key}>
-                            {/* <p>{testItem.name} - {testItem.key}</p>
-            </li>
-            <li key={i}> */}
+                            
                             <p>{testItem.name}</p>
                             <button
                               onClick={() => this.removeTestItem(testItem.key)}
@@ -200,21 +208,9 @@ class Events extends Component {
                           </li>
                         );
                       })}
-                      <form action="submit">
-                        <label htmlFor="newTestItem">
-                          Add a test item to your test
-                        </label>
-                        <input
-                          type="text"
-                          id="newItem"
-                          onChange={this.handleChange}
-                          value={this.state.userInput}
-                        />
-
-                        <button onClick={this.handleClick}>
-                          Add Test Item
-                        </button>
-                      </form>
+                      <button value={event.name} onClick={this.handleClick}>Add Item</button>
+                      {/* {console.log(event.name)} */}
+                      
                     </div>
                   </div>
                 );
