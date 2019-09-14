@@ -167,22 +167,25 @@ class Events extends Component {
               this.state.filteredEvents.map(event => {
                 return (
                   <div className="eventContainer" key={event.id}>
+                    <div className="infoContainer">
                     <h3>Title: {event.name}</h3>
-                    <p>Start Date: {event.dates.start.localDate}</p>
-                    <p>Info: {event.info}</p>
-                    {event.priceRanges[0].min === event.priceRanges[0].max ? (
-                      <p>the price: {event.priceRanges[0].min}</p>
-                    ) : (
+                      <p>Start Date: {event.dates.start.localDate}</p>
+                      <p>Info: {event.info}</p>
+                      {event.priceRanges[0].min === event.priceRanges[0].max ? (
+                        <p>the price: {event.priceRanges[0].min}</p>
+                      ) : (
+                        <p>
+                          The price range: {event.priceRanges[0].min} -{" "}
+                          {event.priceRanges[0].max}
+                        </p>
+                      )}
                       <p>
-                        The price range: {event.priceRanges[0].min} -{" "}
-                        {event.priceRanges[0].max}
+                        <a href={event.url}>TicketMaster Link</a>
                       </p>
-                    )}
-                    <p>
-                      <a href={event.url}>TicketMaster Link</a>
-                    </p>
-                    <img src={event.images[2].url} alt={event.name} />
-
+                    </div>
+                    <div className="imageContainer">
+                      <img src={event.images[2].url} alt={event.name} />
+                    </div>
                     <div>
                       {this.state.test.map(testItem => {
                         return (

@@ -21,10 +21,22 @@ body {
   font-weight: 300;
 }
 
-img {
-  width: 100%;
+button {
+  border: none;
+  background-color: #87C08D;
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 40px;
 }
 
+button:hover {
+  color: #436775;
+  background-color: #CBFCF0;
+  transition: transform 1.3s ease-in-out;
+}
+/* End of Global Styling */
+
+/*App and Wrapper Styling */
 .wrapper {
   margin: 0 auto;
   max-width: 1200px;
@@ -35,6 +47,8 @@ img {
 }
 
 /* Specific Styling */
+
+/* Typography */
 h1 {
   font-size: 4rem;
   /* margin-top: 2rem; */
@@ -55,11 +69,9 @@ h2 {
   font-weight: 700;
   margin: 1rem;
 }
+/* End of Typography */
 
-main p, .eventContainer p {
-  margin: 6px 0;
-}
-
+/*Header & Nav Styling */
 header {
   background: url('./assets/aditya-chinchure-ZhQCZjr9fHo-unsplash.jpg');
   background-position: center;
@@ -108,22 +120,9 @@ header {
 .navBar a:hover {
   color: #436775;
 }
+/*End of Header & Nav Styling */
 
-.events {
-  display: flex;
-  flex-wrap: wrap;
-  margin: 20px 0;
-  justify-content: center;
-  align-items: center;
-}
-
-.eventContainer {
-  display: flex;
-  flex-direction: column;
-  width: 40%;
-  margin: 10px;
-}
-
+/*User Details Form on Home Page Styling */
 .userInputForm, .search {
   display: flex;
   flex-direction: column;
@@ -171,17 +170,33 @@ input {
   border-bottom: 2px solid #87C08D;
 }
 
-button {
-  border: none;
-  background-color: #87C08D;
-  color: white;
-  padding: 1rem 2rem;
-  border-radius: 40px;
+/*Events and Search Styling */
+.events {
+  display: flex;
+  flex-direction: column;
+  margin: 20px 0;
+  justify-content: center;
+  align-items: center;
 }
 
-button:hover {
-  color: #436775;
-  background-color: #CBFCF0;
-  transition: transform 1.3s ease-in-out;
+.eventContainer {
+  display: flex;
+  /* flex-direction: column; */
+  width: 100%;
+  margin: 10px;
+  border: 2px solid red;
+}
+
+.infoContainer {
+  
+}
+
+img {
+  width: 300px;
+  height: 200px;
+}
+
+main p, .eventContainer p {
+  margin: 6px 0;
 }
 
