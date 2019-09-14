@@ -191,20 +191,10 @@ class Events extends Component {
                       <p>
                         <a href={event.url}>TicketMaster Link</a>
                       </p>
-<<<<<<< HEAD
                     </div>
                     <div className="imageContainer">
                       <img src={event.images[2].url} alt={event.name} />
                     </div>
-=======
-                    )}
-                    <p>
-                      <a href={event.url}>TicketMaster Link</a>
-                    </p>
-                    
-                    <img src={event.images[2].url} alt={event.name} />
-
->>>>>>> 334ff9fb49ff54f78716373e7762f1bf0b945f59
                     <div>
                       {this.state.test.map(testItem => {
                         return (
