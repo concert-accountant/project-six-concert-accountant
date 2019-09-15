@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import {Redirect} from 'react-router-dom'; 
 
 class UserDetails extends Component {
   constructor() {
@@ -7,7 +8,8 @@ class UserDetails extends Component {
       userName: "",
       listName: "",
       location: "",
-      budget: ""
+      budget: "",
+      redirect: false,
     };
   }
 
@@ -17,14 +19,27 @@ class UserDetails extends Component {
         this.setState({
             [e.target.name]: e.target.value,
         })
-    };
+  };
 
   handleSubmit = e => {
     e.preventDefault();
     const data = this.state
     console.log(data);
   
-    };
+  };
+
+  setRedirect = () => {
+    this.setState({
+      redirect: true
+    })
+  };
+  
+  renderRedirect = () => {
+    if (this.state.redirect) {
+      return <Redirect to='/events' />
+    }
+  };
+
 
   render() {
     return (  
@@ -50,7 +65,9 @@ class UserDetails extends Component {
             <option value="500+">$500+</option>
         </select>
 
-        <button className="formSubmit" type="submit" value="Submit">Go To Search</button>
+        {this.renderRedirect()}
+        <button className="formSubmit" onClick={this.setRedirect} type="submit" value="Submit">Go To Search</button>
+
       </form>
     );
   }
