@@ -120,23 +120,20 @@ class Events extends Component {
   //Function to push userInput data to Firebase
   handleClick = e => {
     e.preventDefault();
-
     const dbRef = firebase.database().ref();
 
-    this.setState(
-      {
-        userInput: e.target.value
-      },
-      () => dbRef.push(this.state.userInput)
-    );
-    console.log(this.state.userInput);
-  };
+    this.setState({
+      userInput: e.target.value
+    }, () => dbRef.push(this.state.userInput));
+    // console.log(this.state.userInput)
+
+  }
 
   //Function to remove items when remove button is clicked and store in firebase
-  removeTestItem(testItemId) {
-    const dbRef = firebase.database().ref();
-    dbRef.child(testItemId).remove();
-  }
+  // removeTestItem(testItemId) {
+  //   const dbRef = firebase.database().ref();
+  //   dbRef.child(testItemId).remove();
+  // }
 
   //Modal Functions to Show and Hide
   showModal = () => {
@@ -155,17 +152,17 @@ class Events extends Component {
   componentDidMount() {
     this.getEvents(this.state.url);
 
-    const dbRef = firebase.database().ref();
-    dbRef.on("value", response => {
-      const newState = [];
-      const data = response.val();
-      for (let key in data) {
-        newState.push({ key: key, name: data[key] });
-      }
-      this.setState({
-        test: newState
-      });
-    });
+    // const dbRef = firebase.database().ref();
+    // dbRef.on("value", response => {
+    //   const newState = [];
+    //   const data = response.val();
+    //   for (let key in data) {
+    //     newState.push({ key: key, name: data[key] });
+    //   }
+    //   this.setState({
+    //     test: newState
+    //   });
+    // });
   }
 
   render() {
@@ -210,27 +207,25 @@ class Events extends Component {
                     <div className="imageContainer">
                       <img src={event.images[2].url} alt={event.name} />
 
-                      <div>
-                        {this.state.test.map(testItem => {
-                          return (
-                            <li key={testItem.key}>
-                              <p>{testItem.name}</p>
-                              <button
-                                onClick={() =>
-                                  this.removeTestItem(testItem.key)
-                                }
-                              >
-                                {" "}
-                                Remove Item{" "}
-                              </button>
-                            </li>
-                          );
-                        })}
-                        <button value={event.name} onClick={this.handleClick}>
-                          Add Item
-                        </button>
-                        {/* {console.log(event.name)} */}
-                      </div>
+                    </div>
+                    <div>
+                      {/* {this.state.test.map(testItem => {
+                        return (
+                          <li key={testItem.key}>
+                            
+                            <p>{testItem.name}</p>
+                            <button
+                              onClick={() => this.removeTestItem(testItem.key)}
+                            >
+                              {" "}
+                              Remove Item{" "}
+                            </button>
+                          </li>
+                        );
+                      })} */}
+                      <button value={event.name} onClick={this.handleClick}>Add Item</button>
+                      {/* {console.log(event.name)} */}
+                      
                     </div>
                   </div>
                 );
