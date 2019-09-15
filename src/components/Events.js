@@ -122,42 +122,37 @@ class Events extends Component {
 
 
   handleClick = e => {
-
     e.preventDefault();
-
     const dbRef = firebase.database().ref();
-
     this.setState({
-
       userInput: e.target.value
-
     }, () => dbRef.push(this.state.userInput));
-    console.log(this.state.userInput)
+    // console.log(this.state.userInput)
 
   }
 
 
   //Function to remove items when remove button is clicked and store in firebase
-  removeTestItem(testItemId) {
-    const dbRef = firebase.database().ref();
-    dbRef.child(testItemId).remove();
-  }
+  // removeTestItem(testItemId) {
+  //   const dbRef = firebase.database().ref();
+  //   dbRef.child(testItemId).remove();
+  // }
 
   //functions and data to run when component loads
   componentDidMount() {
     this.getEvents(this.state.url);
 
-    const dbRef = firebase.database().ref();
-    dbRef.on("value", response => {
-      const newState = [];
-      const data = response.val();
-      for (let key in data) {
-        newState.push({ key: key, name: data[key] });
-      }
-      this.setState({
-        test: newState
-      });
-    });
+    // const dbRef = firebase.database().ref();
+    // dbRef.on("value", response => {
+    //   const newState = [];
+    //   const data = response.val();
+    //   for (let key in data) {
+    //     newState.push({ key: key, name: data[key] });
+    //   }
+    //   this.setState({
+    //     test: newState
+    //   });
+    // });
   }
 
   render() {
@@ -196,7 +191,7 @@ class Events extends Component {
                       <img src={event.images[2].url} alt={event.name} />
                     </div>
                     <div>
-                      {this.state.test.map(testItem => {
+                      {/* {this.state.test.map(testItem => {
                         return (
                           <li key={testItem.key}>
                             
@@ -209,7 +204,7 @@ class Events extends Component {
                             </button>
                           </li>
                         );
-                      })}
+                      })} */}
                       <button value={event.name} onClick={this.handleClick}>Add Item</button>
                       {/* {console.log(event.name)} */}
                       
