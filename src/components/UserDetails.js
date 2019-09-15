@@ -50,7 +50,7 @@ class UserDetails extends Component {
             <option value="500+">$500+</option>
         </select>
 
-        <button type="submit" value="Submit">Go To Search</button>
+        <button className="formSubmit" type="submit" value="Submit">Go To Search</button>
       </form>
     );
   }
