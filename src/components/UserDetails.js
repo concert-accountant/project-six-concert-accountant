@@ -66,7 +66,8 @@ class UserDetails extends Component {
         </select>
 
         {this.renderRedirect()}
-        <button onClick={this.setRedirect} type="submit" value="Submit">Go To Search</button>
+        <button className="formSubmit" onClick={this.setRedirect} type="submit" value="Submit">Go To Search</button>
+
       </form>
     );
   }

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import ReactDOM from "react-dom";
 import Search from "./Search";
 import axios from "axios";
 import firebase from "../firebase";
@@ -24,7 +25,8 @@ class Events extends Component {
       test: [],
       userInput: "",
       searchTerms: "",
-      noResults: ""
+      noResults: "",
+      show: false
     };
   }
 
@@ -89,9 +91,6 @@ class Events extends Component {
     console.log(this.state.searchTerms);
   };
 
-  ///////////////////////////////////
-  /////////Working on it/////////////
-  //////////////////////////////////
   //function to handle form submit and show results in search component
   searchSubmit = e => {
     e.preventDefault();
@@ -119,29 +118,38 @@ class Events extends Component {
   };
 
   //Function to push userInput data to Firebase
-
-
   handleClick = e => {
-
     e.preventDefault();
 
     const dbRef = firebase.database().ref();
 
-    this.setState({
-
-      userInput: e.target.value
-
-    }, () => dbRef.push(this.state.userInput));
-    console.log(this.state.userInput)
-
-  }
-
+    this.setState(
+      {
+        userInput: e.target.value
+      },
+      () => dbRef.push(this.state.userInput)
+    );
+    console.log(this.state.userInput);
+  };
 
   //Function to remove items when remove button is clicked and store in firebase
   removeTestItem(testItemId) {
     const dbRef = firebase.database().ref();
     dbRef.child(testItemId).remove();
   }
+
+  //Modal Functions to Show and Hide
+  showModal = () => {
+    this.setState({
+      show: true
+    });
+  };
+
+  hideModal = () => {
+    this.setState({
+      show: false
+    });
+  };
 
   //functions and data to run when component loads
   componentDidMount() {
@@ -177,42 +185,52 @@ class Events extends Component {
                 return (
                   <div className="eventContainer" key={event.id}>
                     <div className="infoContainer">
-                    <h3>Title: {event.name}</h3>
-                      <p>Start Date: {event.dates.start.localDate}</p>
-                      <p>Info: {event.info}</p>
+                      <h3>{event.name}</h3>
+                      <p>Date: {event.dates.start.localDate}</p>
+                      <button
+                        className="infoButton"
+                        type="button"
+                        onClick={this.showModal}
+                      >
+                        More Info
+                        {/* {event.info} */}
+                      </button>
                       {event.priceRanges[0].min === event.priceRanges[0].max ? (
-                        <p>the price: {event.priceRanges[0].min}</p>
+                        <p>Price: {event.priceRanges[0].min}</p>
                       ) : (
                         <p>
-                          The price range: {event.priceRanges[0].min} -{" "}
+                          Price range: {event.priceRanges[0].min} -{" "}
                           {event.priceRanges[0].max}
                         </p>
                       )}
                       <p>
-                        <a href={event.url}>TicketMaster Link</a>
+                        <a href={event.url}>Visit Ticketmaster</a>
                       </p>
                     </div>
                     <div className="imageContainer">
                       <img src={event.images[2].url} alt={event.name} />
-                    </div>
-                    <div>
-                      {this.state.test.map(testItem => {
-                        return (
-                          <li key={testItem.key}>
-                            
-                            <p>{testItem.name}</p>
-                            <button
-                              onClick={() => this.removeTestItem(testItem.key)}
-                            >
-                              {" "}
-                              Remove Item{" "}
-                            </button>
-                          </li>
-                        );
-                      })}
-                      <button value={event.name} onClick={this.handleClick}>Add Item</button>
-                      {/* {console.log(event.name)} */}
-                      
+
+                      <div>
+                        {this.state.test.map(testItem => {
+                          return (
+                            <li key={testItem.key}>
+                              <p>{testItem.name}</p>
+                              <button
+                                onClick={() =>
+                                  this.removeTestItem(testItem.key)
+                                }
+                              >
+                                {" "}
+                                Remove Item{" "}
+                              </button>
+                            </li>
+                          );
+                        })}
+                        <button value={event.name} onClick={this.handleClick}>
+                          Add Item
+                        </button>
+                        {/* {console.log(event.name)} */}
+                      </div>
                     </div>
                   </div>
                 );
