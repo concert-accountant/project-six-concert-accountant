@@ -111,20 +111,21 @@ class Events extends Component {
   };
 
   //Function to setstate for userInput when button is pressed
-  handleChange = e => {
-    this.setState({
-      userInput: e.target.value
-    });
-  };
+  // handleChange = e => {
+  //   this.setState({
+  //     userInput: e.target.value
+  //   });
+  // };
 
   //Function to push userInput data to Firebase
-  handleClick = e => {
-    e.preventDefault();
+  handleClick = event => {
+    // e.preventDefault();
     const dbRef = firebase.database().ref();
-
-    this.setState({
-      userInput: e.target.value
-    }, () => dbRef.push(this.state.userInput));
+    dbRef.push(event)
+  
+    // this.setState({
+    //   userInput: e.target.value
+    // }, () => dbRef.push(this.state.userInput));
     // console.log(this.state.userInput)
 
   }
@@ -206,24 +207,9 @@ class Events extends Component {
                     </div>
                     <div className="imageContainer">
                       <img src={event.images[2].url} alt={event.name} />
-
                     </div>
                     <div>
-                      {/* {this.state.test.map(testItem => {
-                        return (
-                          <li key={testItem.key}>
-                            
-                            <p>{testItem.name}</p>
-                            <button
-                              onClick={() => this.removeTestItem(testItem.key)}
-                            >
-                              {" "}
-                              Remove Item{" "}
-                            </button>
-                          </li>
-                        );
-                      })} */}
-                      <button value={event.name} onClick={this.handleClick}>Add Item</button>
+                      <button value={event.name} onClick={() => this.handleClick(event)}>Add Item</button>
                       {/* {console.log(event.name)} */}
                       
                     </div>
