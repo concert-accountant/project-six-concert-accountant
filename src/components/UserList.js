@@ -21,10 +21,9 @@ class UserList extends Component {
       }
       this.setState({
         test: newState,
-        
       });
-      
     });
+    
   }
 
   removeTestItem(testItemId) {
@@ -38,25 +37,24 @@ class UserList extends Component {
         
           <h2>User List</h2>
           <div>
-            {this.state.test.map(testItem => {
+            {this.state.test.map(event => {
               return (
-                <li key={testItem.key}>
+                <li key={event.key}>
 
-                  <p>{testItem.name}</p>
-                  <button
-                    onClick={() => this.removeTestItem(testItem.key)}
-                  >
-                    {" "}
-                    Remove Item{" "}
+                  <p>{event.name.name}</p>
+                  <p>{event.name.url}</p>
+                  <p>{event.name.priceRanges[0].min}</p>
+                  <button onClick={() => this.removeTestItem(event.key)}>Remove Item
                   </button>
                 </li>
               );
             })}
 
           </div>
-        
+        {/* {console.log(this.state.test)} */}
       </div>
     );
+    
   }
 }
 export default UserList;
