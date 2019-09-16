@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import firebase from "../firebase";
+import NavBar from "./NavBar";
 
 class PublishedLists extends Component {
   constructor() {
@@ -28,7 +29,9 @@ componentDidMount() {
 
 render() {
   return (
-    <div className="wrapper">
+    <React.Fragment>
+      <NavBar />
+      <div className="wrapper">
       <div>
         <h2>Published Lists</h2>
         <h3>100$</h3>
@@ -63,7 +66,8 @@ render() {
         
       </div>
       {/* {console.log(this.state.test)} */}
-    </div>
+      </div>
+    </React.Fragment>
   );
 
 }

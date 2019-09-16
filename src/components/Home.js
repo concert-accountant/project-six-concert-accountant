@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import UserDetails from "./UserDetails";
+import NavBar from "./NavBar";
+
 
 class Home extends Component {
   render() {

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import firebase from "../firebase";
+import NavBar from "./NavBar";
 
 class UserList extends Component {
   constructor() { 
@@ -39,8 +40,9 @@ class UserList extends Component {
 
   render() {
     return (
+      <React.Fragment>
+        <NavBar />
       <div className="wrapper">
-        
           <h2>User List</h2>
           <div>
             {this.state.test.map(event => {
@@ -70,6 +72,7 @@ class UserList extends Component {
           </div>
         {/* {console.log(this.state.test)} */}
       </div>
+      </React.Fragment>
     );
     
   }

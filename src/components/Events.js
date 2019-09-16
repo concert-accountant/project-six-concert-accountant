@@ -4,6 +4,7 @@ import Search from "./Search";
 import axios from "axios";
 // import Modal from "./Modal";
 import firebase from "../firebase";
+import NavBar from "./NavBar";
 
 class Events extends Component {
   constructor() {
@@ -138,7 +139,9 @@ class Events extends Component {
 
   render() {
     return (
+      
       <main>
+        <NavBar />
         <div className="wrapper">
           <Search
             value={this.state.search}
