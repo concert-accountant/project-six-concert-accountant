@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import ReactDOM from "react-dom";
+// import ReactDOM from "react-dom";
 import Search from "./Search";
 import axios from "axios";
+// import Modal from "./Modal";
 import firebase from "../firebase";
 
 class Events extends Component {
@@ -25,8 +26,8 @@ class Events extends Component {
       test: [],
       userInput: "",
       searchTerms: "",
-      noResults: "",
-      show: false
+      noResult: "",
+      isShowing: false
     };
   }
 
@@ -41,32 +42,32 @@ class Events extends Component {
         city: this.state.location,
         classificationName: this.state.classification
       }
-    }).then(results => {
-      results = results.data._embedded.events;
-      if (results.length !== 0) {
-        // results.length = 10;
+    })
+      .then(results => {
+        if (results.length !== 0) {
+          results = results.data._embedded.events;
+          // results.length = 10;
+          this.setState({
+            events: results,
+            isLoading: false
+          });
+        } else {
+          this.setState({
+            isLoading: true,
+            events: []
+          });
+        }
+        //call filterResults Function to filter through the array and only return desired items
+        this.filterResults();
+        console.log("new results array", this.state.filteredEvents);
+      })
+      .catch(() => {
         this.setState({
-          events: results,
-          isLoading: false
-        });
-      } else if (results.length === 0) {
-        this.setState({
-          noResult:
-            "Sorry, your search had no results! Make sure you put commas between search terms.",
+          noResult: "Sorry, your search had no results! Try Again?",
           isLoading: false,
           events: []
         });
-      } else {
-        this.setState({
-          events: results,
-          isLoading: false,
-          noResult: null
-        });
-      }
-      //call filterResults Function to filter through the array and only return desired items
-      this.filterResults();
-      console.log("new results array", this.state.filteredEvents);
-    });
+      });
   };
 
   //function to filter through the events array in state and take out events that don't have a priceRange and then again for items that have a priceRange but no min/max price in the array
@@ -110,60 +111,29 @@ class Events extends Component {
     );
   };
 
-  //Function to setstate for userInput when button is pressed
-  // handleChange = e => {
-  //   this.setState({
-  //     userInput: e.target.value
-  //   });
-  // };
-
   //Function to push userInput data to Firebase
   handleClick = event => {
     // e.preventDefault();
     const dbRef = firebase.database().ref();
-    dbRef.push(event)
-  
-    // this.setState({
-    //   userInput: e.target.value
-    // }, () => dbRef.push(this.state.userInput));
-    // console.log(this.state.userInput)
-
-  }
-
-  //Function to remove items when remove button is clicked and store in firebase
-  // removeTestItem(testItemId) {
-  //   const dbRef = firebase.database().ref();
-  //   dbRef.child(testItemId).remove();
-  // }
+    dbRef.push(event);
+  };
 
   //Modal Functions to Show and Hide
-  showModal = () => {
-    this.setState({
-      show: true
-    });
-  };
+  // openModal = () => {
+  //   this.setState({
+  //     isShowing: true
+  //   });
+  // };
 
-  hideModal = () => {
-    this.setState({
-      show: false
-    });
-  };
+  // closeModal = () => {
+  //   this.setState({
+  //     isShowing: false
+  //   });
+  // };
 
   //functions and data to run when component loads
   componentDidMount() {
     this.getEvents(this.state.url);
-
-    // const dbRef = firebase.database().ref();
-    // dbRef.on("value", response => {
-    //   const newState = [];
-    //   const data = response.val();
-    //   for (let key in data) {
-    //     newState.push({ key: key, name: data[key] });
-    //   }
-    //   this.setState({
-    //     test: newState
-    //   });
-    // });
   }
 
   render() {
@@ -176,42 +146,48 @@ class Events extends Component {
             searchSubmit={this.searchSubmit}
           />
           <div className="events">
+            {this.state.noResult && <p>{this.state.noResult}</p>}
             {this.state.isLoading ? (
               <p>...Loading</p>
             ) : (
               this.state.filteredEvents.map(event => {
                 return (
                   <div className="eventContainer" key={event.id}>
+                    <div className="imageContainer">
+                      <img src={event.images[2].url} alt={event.name} />
+                    </div>
                     <div className="infoContainer">
                       <h3>{event.name}</h3>
+                      <p>Genre: {event.classifications[0].genre.name}</p>
                       <p>Date: {event.dates.start.localDate}</p>
-                      <button
-                        className="infoButton"
-                        type="button"
-                        onClick={this.showModal}
-                      >
-                        More Info
-                        {/* {event.info} */}
-                      </button>
-                      {event.priceRanges[0].min === event.priceRanges[0].max ? (
-                        <p>Price: {event.priceRanges[0].min}</p>
-                      ) : (
-                        <p>
-                          Price range: {event.priceRanges[0].min} -{" "}
-                          {event.priceRanges[0].max}
-                        </p>
-                      )}
+                      <p>Time: {event.dates.start.localTime}</p>
+                      <p>Venue: {event._embedded.venues[0].name}</p>
+
                       <p>
                         <a href={event.url}>Visit Ticketmaster</a>
                       </p>
                     </div>
-                    <div className="imageContainer">
-                      <img src={event.images[2].url} alt={event.name} />
-                    </div>
-                    <div>
-                      <button value={event.name} onClick={() => this.handleClick(event)}>Add Item</button>
+                    <div className="budgetInputs">
+                      {event.priceRanges[0].min === event.priceRanges[0].max ? (
+                        <p>
+                          Price: <span>{event.priceRanges[0].min}</span>
+                        </p>
+                      ) : (
+                        <p>
+                          Price range:{" "}
+                          <span>
+                            {event.priceRanges[0].min} -{" "}
+                            {event.priceRanges[0].max}
+                          </span>
+                        </p>
+                      )}
+                      <button
+                        value={event.name}
+                        onClick={() => this.handleClick(event)}
+                      >
+                        Add Item
+                      </button>
                       {/* {console.log(event.name)} */}
-                      
                     </div>
                   </div>
                 );
@@ -223,4 +199,5 @@ class Events extends Component {
     );
   }
 }
+
 export default Events;

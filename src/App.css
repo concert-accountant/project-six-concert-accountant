@@ -181,24 +181,23 @@ input {
 .events {
   display: flex;
   flex-direction: column;
-  margin: 20px 0;
+  justify-content: space-evenly;
 }
 
 .eventContainer {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin: 8px;
-  border: 2px solid #436775;
-  height: 220px;
+  border: 1px solid red;
 }
 
 .infoContainer {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   padding: 10px;
-  height: 220px;
+}
+
+.budgetInputs span {
+  color: red;
 }
 
 .infoContainer h3 {
@@ -209,13 +208,15 @@ input {
   padding: 8px 0;
 }
 
-.imageContainer {
+.imageContainer img {
+  width: 300px;
+  height: 100%;
+}
+
+.budgetInputs {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.imageContainer img {
-  width: 300px;
-  height: 200px;
-}
