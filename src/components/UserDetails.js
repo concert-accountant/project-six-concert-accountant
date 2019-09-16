@@ -45,7 +45,8 @@ class UserDetails extends Component {
   render() {
     return (  
       <form className="userInputForm" onSubmit={this.setRedirect}>
-        <p>Let us help you create a list of shows that fit your budget. Fill out your details and let's get started!</p>
+        <p>Let us help you create a list of shows that fit your budget.</p>
+        <p>Fill out your details and let's get started!</p>
 
         <label htmlFor="userName" className="visuallyHidden">Name</label>
         <input type="text" id="name" placeholder="Name" name="userName" onChange={this.handleInputChange} required></input>
@@ -53,8 +54,8 @@ class UserDetails extends Component {
         <label htmlFor="listName" className="visuallyHidden">List Name</label>
         <input type="text" id="list" placeholder="List" name="listName" onChange={this.handleInputChange} required></input>
 
-        <label htmlFor="location" className="visuallyHidden">Location</label>
-        <input type="text" id="location" placeholder="Location" name="location" onChange={this.handleInputChange} required></input>
+        {/* <label htmlFor="location" className="visuallyHidden">Location</label>
+        <input type="text" id="location" placeholder="Location" name="location" onChange={this.handleInputChange} required></input> */}
 
         <label htmlFor="budget" className="visuallyHidden">Budget</label>
         <select name="budget" id="budget" onChange={this.handleInputChange} required>

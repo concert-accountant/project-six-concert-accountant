@@ -14,7 +14,6 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-        <NavBar />
           <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/myList" component={UserList} />
