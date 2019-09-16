@@ -219,3 +219,26 @@ input {
   width: 300px;
   height: 200px;
 }
+
+
+/* User List Styling */
+
+.listContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: left;
+  margin: 8px;
+  border: 2px solid #436775;
+  height: 220px;
+}
+
+.removeButton {
+  border: none;
+  background-color: #87C08D;
+  color: white;
+  border-radius: 40px;
+  width: 100px;
+  
+}
+  
+

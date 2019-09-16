@@ -120,7 +120,7 @@ class Events extends Component {
   //Function to push userInput data to Firebase
   handleClick = event => {
     // e.preventDefault();
-    const dbRef = firebase.database().ref();
+    const dbRef = firebase.database().ref("eventList");
     dbRef.push(event)
   
     // this.setState({
@@ -218,6 +218,10 @@ class Events extends Component {
               })
             )}
           </div>
+        </div>
+
+        <div>
+
         </div>
       </main>
     );
