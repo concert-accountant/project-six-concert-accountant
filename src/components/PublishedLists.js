@@ -65,8 +65,8 @@ render() {
           console.log(list);
           
           return (
-            <li className="publishContainer" key={list.key}>
-              <h3>User Name {list.eventList.userName}</h3>
+            <li className="eventContainer" key={list.key}>
+              <h3>User Name: {list.eventList.userName}</h3>
               {list.eventList.eventsList.map(details => {
                 return(
                   <div key={details.key + i}>
