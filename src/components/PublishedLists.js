@@ -8,6 +8,7 @@ class PublishedLists extends Component {
     this.state = {
       test: [],
       userInput: "",
+      userData: [],
     }
   }
 
@@ -22,9 +23,19 @@ componentDidMount() {
     this.setState({
       test: newState,
     });
-    
   });
 
+  // const userDataRef = firebase.database().ref("userData")
+  // userDataRef.on("value", response => {
+  //   const newUserData = [];
+  //   const data = response.val();
+  //   for (let key in data) {
+  //     newUserData.push({ key: key, userDataList: data[key] })
+  //   }
+  //   this.setState({
+  //     userData: newUserData,
+  //   })
+  // })
 }
 
 render() {
@@ -42,13 +53,21 @@ render() {
       </div>
 
       <div>
+        {/* {this.state.userData.map((userInfo) => {
+          return (
+            <div className="publishContainer" key={userInfo.key}>
+              <h3>User Name: {userInfo.userDataList.userName}</h3>
+            </div>
+          )
+        })} */}
+
         {this.state.test.map((list, i) => {
           console.log(list);
           
           return (
             <li className="publishContainer" key={list.key}>
-            
-              {list.eventList.map(details => {
+              <h3>User Name {list.eventList.userName}</h3>
+              {list.eventList.eventsList.map(details => {
                 return(
                   <div key={details.key + i}>
                     <h3>Event Name: {details.name.name}</h3>
