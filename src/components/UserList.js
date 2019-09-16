@@ -11,24 +11,38 @@ class UserList extends Component {
     }
   }
   
-  publishList = test => {
-    const dbRef = firebase.database().ref("publishList");
-    dbRef.push(test);
-    console.log("test");
+  
+  publishList = (test, userData) => {
+    const userDataObject = {
+      userName: userData.userName,
+      userList: userData.listName,
+      userBudget: userData.budget,
+      eventsList: test
+    }
+    const dbRef = firebase.database().ref("publishList")
+    dbRef.push(userDataObject);
+    // console.log(userDataObject);
     
   };
 
   componentDidMount() {
-    const dbRef = firebase.database().ref("eventList");
-    dbRef.on("value", response => {
+    const eventRef = firebase.database().ref("eventList");
+    eventRef.on("value", response => {
       const newState = [];
       const data = response.val();
       for (let key in data) {
         newState.push({ key: key, name: data[key] });
       }
-      this.setState({
-        test: newState,
-      });
+      const userRef = firebase.database().ref("userData");
+      userRef.once("value").then((snapshot) => {
+        const userData = snapshot.val()
+        console.log(userData)
+        this.setState({
+          test: newState,
+          userData: userData
+        });
+      })
+      
     });
     
   }
@@ -66,7 +80,7 @@ class UserList extends Component {
               );
             })}
             <div>
-              <button className="publishButton" onClick={() => this.publishList(this.state.test)}> Publish List
+              <button className="publishButton" onClick={() => this.publishList(this.state.test, this.state.userData)}> Publish List
               </button>
             </div>
           </div>

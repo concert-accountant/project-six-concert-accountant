@@ -32,13 +32,21 @@ class UserDetails extends Component {
 
   renderRedirect = () => {
     if (this.state.redirect) {
-      return <Redirect to="/events" />;
+
+      return <Redirect to={{
+        pathname: '/events',
+        state: this.state
+      }}
+      />
+
     }
   };
 
   handleUserInputData = () => {
     const dbRef = firebase.database().ref("userData");
-    dbRef.push(this.state);
+
+    dbRef.set(this.state)
+
     console.log(this.state);
   };
 
