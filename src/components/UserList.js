@@ -10,6 +10,12 @@ class UserList extends Component {
     }
   }
   
+  publishList = test => {
+    const dbRef = firebase.database().ref("publishList");
+    dbRef.push(test);
+    console.log("test");
+    
+  };
 
   componentDidMount() {
     const dbRef = firebase.database().ref("eventList");
@@ -57,7 +63,10 @@ class UserList extends Component {
                 </li>
               );
             })}
-
+            <div>
+              <button className="publishButton" onClick={() => this.publishList(this.state.test)}> Publish List
+              </button>
+            </div>
           </div>
         {/* {console.log(this.state.test)} */}
       </div>
