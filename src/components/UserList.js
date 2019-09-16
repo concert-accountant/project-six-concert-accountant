@@ -61,7 +61,7 @@ class UserList extends Component {
           <div>
             {this.state.test.map(event => {
               return (
-                <li className="listContainer" key={event.key}>
+                <li className="eventContainer" key={event.key}>
 
                   <div className="imageContainer">
                     <img src={event.name.images[2].url} alt={event.name.name} />
