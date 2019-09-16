@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import {Redirect} from 'react-router-dom'; 
+import {Redirect, withRouter} from "react-router-dom"; 
+import firebase from "../firebase";
 
 class UserDetails extends Component {
   constructor() {
@@ -21,17 +22,12 @@ class UserDetails extends Component {
         })
   };
 
-  handleSubmit = e => {
-    e.preventDefault();
-    const data = this.state
-    console.log(data);
-  
-  };
-
   setRedirect = () => {
     this.setState({
       redirect: true
     })
+
+    this.handleUserInputData();
   };
   
   renderRedirect = () => {
@@ -40,23 +36,28 @@ class UserDetails extends Component {
     }
   };
 
+  handleUserInputData = () => {
+    const dbRef = firebase.database().ref("userData");
+    dbRef.push(this.state)
+    console.log(this.state);
+  }
 
   render() {
     return (  
-      <form className="userInputForm" onSubmit={this.handleSubmit}>
+      <form className="userInputForm" onSubmit={this.setRedirect}>
         <p>Let us help you create a list of shows that fit your budget. Fill out your details and let's get started!</p>
 
         <label htmlFor="userName" className="visuallyHidden">Name</label>
-        <input type="text" required id="name" placeholder="Name" name="userName" onChange={this.handleInputChange}></input>
+        <input type="text" id="name" placeholder="Name" name="userName" onChange={this.handleInputChange} required></input>
 
         <label htmlFor="listName" className="visuallyHidden">List Name</label>
-        <input type="text" required id="list" placeholder="List" name="listName" onChange={this.handleInputChange}></input>
+        <input type="text" id="list" placeholder="List" name="listName" onChange={this.handleInputChange} required></input>
 
         <label htmlFor="location" className="visuallyHidden">Location</label>
-        <input type="text" required id="location" placeholder="Location" name="location" onChange={this.handleInputChange}></input>
+        <input type="text" id="location" placeholder="Location" name="location" onChange={this.handleInputChange} required></input>
 
         <label htmlFor="budget" className="visuallyHidden">Budget</label>
-        <select name="budget" required id="budget" onChange={this.handleInputChange}>
+        <select name="budget" id="budget" onChange={this.handleInputChange} required>
             <option value="">Select Budget</option>
             <option value="100">$100</option>
             <option value="200">$200</option>
@@ -66,7 +67,7 @@ class UserDetails extends Component {
         </select>
 
         {this.renderRedirect()}
-        <button className="formSubmit" onClick={this.setRedirect} type="submit" value="Submit">Go To Search</button>
+        <button className="formSubmit" type="submit" value="Submit">Go To Search</button>
 
       </form>
     );
