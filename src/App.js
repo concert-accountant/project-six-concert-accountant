@@ -20,8 +20,8 @@ class App extends Component {
             <Route path="/myList" component={UserList} />
             <Route path="/publishedLists" component={PublishedLists} />
             <Route path="/events" component={Events} />
-            <Footer />
           </Switch>
+            <Footer />
         </div>
       </Router>
     );
