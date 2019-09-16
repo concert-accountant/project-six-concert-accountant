@@ -34,6 +34,7 @@ body {
   border: none;
   background-color: #87C08D;
   color: white;
+  /* text-shadow: 1px 1px #000; */
   padding: 20px 40px;
   border-radius: 40px;
 }
@@ -63,7 +64,7 @@ body {
 
 /* Typography */
 
-h1, h2, h3 {
+h1, h2, h3, h4 {
   font-family: 'Kanit', sans-serif;
   font-weight: 700;
 }
@@ -109,6 +110,10 @@ header h1 {
   padding-top: 26px;
 }
 
+header span {
+  color: #91f39a;
+}
+
 .navBar {
   display: flex;
   justify-content: space-between;
@@ -120,9 +125,11 @@ header h1 {
 }
 
 .navBar h4 {
-  font-family: 'Kanit', sans-serif;
-  font-weight: 700;
   padding-left: 12px;
+}
+
+.navBar span {
+  color: #91f39a;
 }
 
 .navBar ul {
@@ -154,8 +161,12 @@ header h1 {
 /*User Details Form on Home Page Styling */
 
 main {
-  background: #cbfcf0;
-  margin: 0 auto;
+  background-image: url("./assets/backgroundImage.jpg");
+  min-height: 500px;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .userInputForm, .search {
@@ -170,7 +181,12 @@ main {
   /* width: 500px; */
   text-align: center;
   padding: 12px;
-  color: #91f39a;
+  color: #87C08D;
+  line-height: 1rem;
+}
+
+.userInputForm p:nth-of-type(2) {
+  padding-top: 0;
 }
 
 .userInputForm {
@@ -181,8 +197,8 @@ main {
   align-items: center;
   margin: 20px auto 0;
   padding: 15px 0;
-  /* background: rgba(67, 103, 117, 0.9); */
   background: rgba(0, 0, 0, 0.8);
+  border-radius: 20px;
 }
 
 input {
@@ -218,7 +234,6 @@ option {
 background: rgb(0, 0, 0);
 }
 
-
 /*Events and Search Styling */
 
 .noResults {
@@ -234,6 +249,14 @@ background: rgb(0, 0, 0);
   align-items: center;
 }
 
+.search h2 {
+  color: #fff;
+}
+
+.search h2 span {
+  color: #91f39a;
+}
+
 .searchBar {
   display: flex;
   flex-direction: column;
@@ -245,50 +268,78 @@ background: rgb(0, 0, 0);
   width: 300px;
 }
 
+h3.searchResults {
+  color: white;
+}
+
 .events {
   display: flex;
-  /* flex-direction: column; */
   flex-wrap: wrap;
   justify-content: space-evenly;
   margin-top: 40px;
+}
+
+p.loading {
+  color: #fff;
 }
 
 .eventContainer {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background: #436775;
-  color: white;
-  border: 1px solid red;
-  width: 500px;
+  background: #fff;
+  color: #436775;
+  border-radius: 10px;
+  width: 320px;
   margin-bottom: 20px;
 }
 
 .infoContainer {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   padding: 10px;
 }
 
 .infoContainer span {
-  color: #87c08d;
-}
-
-.budgetInputs span {
-  color: red;
+  color: #436775;
+  text-transform: uppercase;
 }
 
 .infoContainer h3 {
   text-align: center;
 }
 
-.infoContainer p {
+.dataContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 10px;
+}
+
+.dataContainer p {
   padding: 8px 0;
+  color: black;
+}
+
+.infoContainer a {
+  text-decoration: none;
+  color: #436775;
+  padding: 5px 0;
+  border-radius: 20px;
+  text-align: center;
+  width: 60%;
+}
+
+.infoContainer a:hover {
+  background: #CBFCF0;
 }
 
 .imageContainer img {
   width: 100%;
   height: 100%;
+  border-radius: 10px 10px 0 0;
 }
 
 .budgetInputs {
@@ -296,6 +347,32 @@ background: rgb(0, 0, 0);
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.budgetInputs button {
+  border: none;
+  background: #87c08d;
+  color: white;
+  padding: 8px 0;
+  margin: 10px;
+  border-radius: 20px;
+  border: 1px solid #87C08D;
+  text-align: center;
+  width: 40%;
+}
+
+.budgetInputs button:hover {
+  background: #CBFCF0;
+  color: #436775;
+  border: 1px solid #436775;
+}
+
+.budgetInputs p {
+  color: #436775;
+}
+.budgetInputs span {
+  color: #0cb41c;
+  font-weight: 700;
 }
 
 /*Footer Styling */
@@ -312,3 +389,46 @@ footer a {
   color: #87c08d;
   text-decoration: none;
 }
+
+/* Loading Spinner */
+.spinner {
+  margin: 100px auto 0;
+  width: 70px;
+  text-align: center;
+}
+
+/* .spinner > div {
+  width: 18px;
+  height: 18px;
+  background-color: #fff;
+
+  border-radius: 100%;
+  display: inline-block;
+  -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+  animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+}
+
+.spinner .bounce1 {
+  -webkit-animation-delay: -0.32s;
+  animation-delay: -0.32s;
+}
+
+.spinner .bounce2 {
+  -webkit-animation-delay: -0.16s;
+  animation-delay: -0.16s;
+}
+
+@-webkit-keyframes sk-bouncedelay {
+  0%, 80%, 100% { -webkit-transform: scale(0) }
+  40% { -webkit-transform: scale(1.0) }
+}
+
+@keyframes sk-bouncedelay {
+  0%, 80%, 100% { 
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  } 40% { 
+    -webkit-transform: scale(1.0);
+    transform: scale(1.0);
+  }
+} */
