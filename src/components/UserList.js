@@ -12,7 +12,7 @@ class UserList extends Component {
   
 
   componentDidMount() {
-    const dbRef = firebase.database().ref();
+    const dbRef = firebase.database().ref("eventList");
     dbRef.on("value", response => {
       const newState = [];
       const data = response.val();
@@ -27,7 +27,7 @@ class UserList extends Component {
   }
 
   removeTestItem(testItemId) {
-    const dbRef = firebase.database().ref();
+    const dbRef = firebase.database().ref("eventList");
     dbRef.child(testItemId).remove();
   }
 
@@ -39,13 +39,21 @@ class UserList extends Component {
           <div>
             {this.state.test.map(event => {
               return (
-                <li key={event.key}>
+                <li className="listContainer" key={event.key}>
 
-                  <p>{event.name.name}</p>
-                  <p>{event.name.url}</p>
-                  <p>{event.name.priceRanges[0].min}</p>
-                  <button onClick={() => this.removeTestItem(event.key)}>Remove Item
+                  <div className="imageContainer">
+                    <img src={event.name.images[2].url} alt={event.name.name} />
+                  </div>
+                  
+                  <h3>Event Name: {event.name.name}</h3>
+                  <p>Price: $ {event.name.priceRanges[0].min}</p>
+                  <a href={event.name.url}>Event Link on Ticketmaster</a>
+                  
+                  <div>
+                    <button className="removeButton" onClick={() => this.removeTestItem(event.key)}>Remove Item
                   </button>
+                  </div>
+                  
                 </li>
               );
             })}
