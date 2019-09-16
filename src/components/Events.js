@@ -50,7 +50,8 @@ class Events extends Component {
           // results.length = 10;
           this.setState({
             events: results,
-            isLoading: false
+            isLoading: false,
+            noResult: ""
           });
         } else {
           this.setState({
@@ -139,7 +140,6 @@ class Events extends Component {
 
   render() {
     return (
-      
       <main>
         <NavBar />
         <div className="wrapper">
@@ -148,12 +148,17 @@ class Events extends Component {
             searchInput={this.searchInput}
             searchSubmit={this.searchSubmit}
           />
-            <div className="noResults">
-              {this.state.noResult && <p>{this.state.noResult}</p>}
-            </div>
+          <div className="noResults">
+            {this.state.noResult && <p>{this.state.noResult}</p>}
+          </div>
           <div className="events">
             {this.state.isLoading ? (
-              <p>...Loading</p>
+              <p className="loading">...LOADING</p>
+              // <div class="spinner">
+              //   <div class="bounce1"></div>
+              //   <div class="bounce2"></div>
+              //   <div class="bounce3"></div>
+              // </div>
             ) : (
               this.state.filteredEvents.map(event => {
                 return (
@@ -163,23 +168,22 @@ class Events extends Component {
                     </div>
                     <div className="infoContainer">
                       <h3>{event.name}</h3>
-                      <p>
-                        <span>Genre:</span>{" "}
-                        {event.classifications[0].genre.name}
-                      </p>
-                      <p>
-                        <span>Date:</span> {event.dates.start.localDate}
-                      </p>
-                      <p>
-                        <span>Time:</span> {event.dates.start.localTime}
-                      </p>
-                      <p>
-                        <span>Venue:</span> {event._embedded.venues[0].name}
-                      </p>
-
-                      <p>
-                        <a href={event.url}>Visit Ticketmaster</a>
-                      </p>
+                      <a href={event.url}>Visit Ticketmaster</a>
+                      <div className="dataContainer">
+                        <p>
+                          <span>Genre:</span>{" "}
+                          {event.classifications[0].genre.name}
+                        </p>
+                        <p>
+                          <span>Date:</span> {event.dates.start.localDate}
+                        </p>
+                        <p>
+                          <span>Time:</span> {event.dates.start.localTime}
+                        </p>
+                        <p>
+                          <span>Venue:</span> {event._embedded.venues[0].name}
+                        </p>
+                      </div>
                     </div>
                     <div className="budgetInputs">
                       {event.priceRanges[0].min === event.priceRanges[0].max ? (
@@ -190,8 +194,8 @@ class Events extends Component {
                         <p>
                           Price range:{" "}
                           <span>
-                            ${event.priceRanges[0].min} -{" "}
-                            ${event.priceRanges[0].max}
+                            ${event.priceRanges[0].min} - $
+                            {event.priceRanges[0].max}
                           </span>
                         </p>
                       )}
@@ -210,9 +214,7 @@ class Events extends Component {
           </div>
         </div>
 
-        <div>
-
-        </div>
+        <div></div>
       </main>
     );
   }
