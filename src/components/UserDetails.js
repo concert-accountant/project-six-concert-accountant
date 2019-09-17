@@ -46,6 +46,10 @@ class UserDetails extends Component {
     dbRef.set(this.state)
     console.log(this.state);
   };
+  componentWillUnmount() {
+    const removeRef = firebase.database().ref("eventList")
+    removeRef.remove();
+  }
 
   render() {
     return (
