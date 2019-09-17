@@ -21,8 +21,7 @@ class UserList extends Component {
     }
     const dbRef = firebase.database().ref("publishList")
     dbRef.push(userDataObject);
-    // console.log(userDataObject);
-    
+    // console.log(userDataObject);    
   };
 
   componentDidMount() {
@@ -41,8 +40,7 @@ class UserList extends Component {
           test: newState,
           userData: userData
         });
-      })
-      
+      })      
     });
     
   }
@@ -53,6 +51,7 @@ class UserList extends Component {
   }
 
   render() {
+    // const { location } = this.props;
     return (
       <React.Fragment>
         <NavBar />
