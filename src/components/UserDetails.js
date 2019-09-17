@@ -55,7 +55,7 @@ class UserDetails extends Component {
           your budget.
         </p>
         <p>Fill out your details and let's get started!</p>
-
+        
         <label htmlFor="userName" className="visuallyHidden">
           Name
         </label>
