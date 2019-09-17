@@ -17,56 +17,69 @@ class Events extends Component {
       url: "https://app.ticketmaster.com/discovery/v2/events.json?",
       baseUrl:
         "https://app.ticketmaster.com/discovery/v2/events.json?&apikey=RzVQVthdwCGvl8TaJVeNTb3nxVceKaFu&classificationName=music",
-      location: "Toronto",
+      city: "Toronto",
       classification: "music",
       query: "&keyword=",
       currentBudget: 0,
+      targetBudget: 0,
       test: [],
       userInput: "",
       searchTerms: "",
       noResult: "",
       isShowing: false,
+      redirect: false
     };
   }
 
   //axios call to get initial array of events based on city
   getEvents = url => {
-    axios({
-      method: "GET",
-      url: url,
-      dataResponse: "json",
-      params: {
-        apikey: "RzVQVthdwCGvl8TaJVeNTb3nxVceKaFu",
-        city: this.state.location,
-        classificationName: this.state.classification
-      }
-    })
-      .then(results => {
-        if (results.length !== 0) {
-          results = results.data._embedded.events;
-          // results.length = 10;
-          this.setState({
-            events: results,
-            isLoading: false,
-            noResult: ""
+    let budget = "";
+    firebase
+      .database()
+      .ref("userData")
+      .once("value")
+      .then(snapshot => {
+        budget = snapshot.val().budget;
+        console.log("snapshot budget", snapshot.val().budget);
+
+        axios({
+          method: "GET",
+          url: url,
+          dataResponse: "json",
+          params: {
+            apikey: "RzVQVthdwCGvl8TaJVeNTb3nxVceKaFu",
+            city: this.state.city,
+            classificationName: this.state.classification
+          }
+        })
+          .then(results => {
+            if (results.length !== 0) {
+              results = results.data._embedded.events;
+              // results.length = 10;
+              this.setState({
+                events: results,
+                isLoading: false,
+                noResult: "",
+                targetBudget: budget
+              });
+            } else {
+              this.setState({
+                isLoading: true,
+                events: []
+              });
+            }
+            //call filterResults Function to filter through the array and only return desired items
+            this.filterResults();
+            // console.log("new results array", this.state.filteredEvents);
+            // console.log(this.props.location.state.budget);
+          })
+          .catch(() => {
+            this.setState({
+              noResult: "Sorry, your search had no results! Try Again?",
+              isLoading: false,
+              events: []
+            });
           });
-        } else {
-          this.setState({
-            isLoading: true,
-            events: []
-          });
-        }
-        //call filterResults Function to filter through the array and only return desired items
-        this.filterResults();
-        console.log("new results array", this.state.filteredEvents);
-        console.log(this.props.location.state.budget);
-      })
-      .catch(() => {
-        this.setState({
-          noResult: "Sorry, your search had no results! Try Again?",
-          isLoading: false,
-          events: []
-        });
       });
   };
 
@@ -89,7 +102,7 @@ class Events extends Component {
     this.setState({
       searchTerms: event.target.value
     });
-    console.log(this.state.searchTerms);
+    // console.log(this.state.searchTerms);
   };
 
   //function to handle form submit and show results in search component
@@ -106,7 +119,7 @@ class Events extends Component {
       },
       () => {
         this.getEvents(this.state.url);
-        console.log("updated url", this.state.url);
+        // console.log("updated url", this.state.url);
       }
     );
   };
@@ -116,27 +129,55 @@ class Events extends Component {
     // event.preventDefault();
     const dbRef = firebase.database().ref("eventList");
     dbRef.push(event);
-    this.setState({
-      currentBudget: event.priceRanges[0].min + this.state.currentBudget
-    });
+    const budgetRef = firebase.database().ref("currentBudget");
+    budgetRef.set(this.state.currentBudget);
+
+    if (
+      event.priceRanges[0].min + this.state.currentBudget >
+      this.state.targetBudget
+    ) {
+      this.setState({
+        redirect: true,
+        currentBudget: event.priceRanges[0].min + this.state.currentBudget
+      });
+    } else {
+      this.setState({
+        currentBudget: event.priceRanges[0].min + this.state.currentBudget
+      });
+    }
+    //if below is greater than .location.budget
+    //set redirect to true
+    // this.setState({
+    //   currentBudget: event.priceRanges[0].min + this.state.currentBudget
+    // redirect:
+    // });
+    //else
+    // this.setState({
+    //   currentBudget: event.priceRanges[0].min + this.state.currentBudget
+    // });
   };
 
+  // setRedirect = () => {
+  //   this.setState({
+  //     redirect: true
+  //   });
+  // };
+
   budgetCheck = () => {
-    if (this.state.currentBudget > this.props.location.state.budget) {
-      alert("Yo you dummy you spent too much dudzes");
-      if (this.state.redirect) {
-        return (
-          <Redirect
-            to={{
-              pathname: "/myList",
-              state: this.state
-            }}
-          />
-        );
-      }
-    } else {
-      console.log("your budget is:", this.state.currentBudget);
+    if (this.state.redirect) {
+      // alert("Yo you dummy you spent too much dudzes");
+      return (
+        <Redirect
+          to={{
+            pathname: "/myList",
+            state: this.props.location.state
+          }}
+        />
+      );
     }
+    // else {
+    //   console.log("your budget is:", this.state.currentBudget);
+    // }
   };
 
   //functions and data to run when component loads
@@ -144,15 +185,17 @@ class Events extends Component {
     this.getEvents(this.state.url);
   }
 
-  componentDidUpdate() {
-    this.budgetCheck();
-    console.log(this.state.currentBudget);
-  }
+  // componentDidUpdate() {
+  //   this.budgetCheck();
+  //   console.log(this.state.currentBudget);
+  // }
 
   render() {
+    console.log("your budget is:", this.state.currentBudget);
+    console.log("budget", this.state.targetBudget);
     return (
       <main>
-        <NavBar />
+        <NavBar location={this.props.location.state} />
         <div className="wrapper">
           <Search
             value={this.state.search}
@@ -205,10 +248,10 @@ class Events extends Component {
                           </span>
                         </p>
                       )}
+                      {this.budgetCheck()}
                       <button
                         disabled={
-                          this.state.currentBudget >
-                          this.props.location.state.budget
+                          this.state.currentBudget > this.state.targetBudget
                         }
                         className="addItem"
                         // value={event.name}
@@ -216,7 +259,6 @@ class Events extends Component {
                       >
                         Add Item
                       </button>
-                      {/* {console.log(event.name)} */}
                     </div>
                   </div>
                 );

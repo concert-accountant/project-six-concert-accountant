@@ -25,8 +25,6 @@ class UserList extends Component {
     
     const removeRef = firebase.database().ref("eventList")
     removeRef.remove();
-
-    
   };
 
   componentDidMount() {
@@ -45,8 +43,7 @@ class UserList extends Component {
           test: newState,
           userData: userData
         });
-      })
-      
+      })      
     });
     
   }
@@ -57,6 +54,7 @@ class UserList extends Component {
   }
 
   render() {
+    // const { location } = this.props;
     return (
       <React.Fragment>
       <main>
