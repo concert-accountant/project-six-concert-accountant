@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { Redirect, withRouter } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import firebase from "../firebase";
-import logo from "../assets/concertAccountantLogo.png";
+import NavBar from "./NavBar";
 
 class UserDetails extends Component {
   constructor() {
@@ -14,9 +14,6 @@ class UserDetails extends Component {
       redirect: false
     };
   }
-
-  // handleBudget = () => {
-  // }
 
   handleInputChange = e => {
     e.preventDefault();
@@ -82,9 +79,6 @@ class UserDetails extends Component {
           onChange={this.handleInputChange}
           required
         ></input>
-
-        {/* <label htmlFor="location" className="visuallyHidden">Location</label>
-        <input type="text" id="location" placeholder="Location" name="location" onChange={this.handleInputChange} required></input> */}
 
         <label htmlFor="budget" className="visuallyHidden">
           Budget
