@@ -8,6 +8,7 @@ class UserList extends Component {
     this.state = {
       test: [],
       userInput: "",
+      currentBudget: ""
     }
   }
   
@@ -48,9 +49,35 @@ class UserList extends Component {
     
   }
 
-  removeTestItem(testItemId) {
-    const dbRef = firebase.database().ref("eventList");
-    dbRef.child(testItemId).remove();
+  removeTestItem = testItemId => {
+    console.log("THE TEST ITEM ID OBJECT", testItemId.name.priceRanges[0].min);
+    let removedPrice = testItemId.name.priceRanges[0].min;
+
+    let snapshotBudget = "";
+    firebase
+      .database()
+      .ref("currentBudget")
+      .once("value")
+      .then(snapshot => {
+        snapshotBudget = snapshot.val();
+        this.setState({
+          currentBudget: snapshotBudget - removedPrice
+        }, 
+        // () => {
+        //   this.setState({
+        //     currentBudget: currentBudget - testItemId.priceRanges[0].min
+        //   },
+          () => {
+              const budgetRef = firebase.database().ref("currentBudget");
+              budgetRef.set(this.state.currentBudget);
+
+              const dbRef = firebase.database().ref("eventList");
+              dbRef.child(testItemId.key).remove();
+            });
+        console.log("This is the removed item budget", this.state.currentBudget);
+        // });
+        
+      })
   }
 
   render() {
@@ -75,7 +102,7 @@ class UserList extends Component {
                   <a href={event.name.url}>Event Link on Ticketmaster</a>
                   
                   <div>
-                    <button className="removeButton" onClick={() => this.removeTestItem(event.key)}>Remove Item
+                    <button className="removeButton" onClick={() => this.removeTestItem(event)}>Remove Item
                   </button>
                   </div>
                   

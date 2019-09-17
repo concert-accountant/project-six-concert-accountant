@@ -49,6 +49,8 @@ class UserDetails extends Component {
   componentWillUnmount() {
     const removeRef = firebase.database().ref("eventList")
     removeRef.remove();
+    const removeBudgetRef = firebase.database().ref("currentBudget")
+    removeBudgetRef.set(0);
   }
 
   render() {
