@@ -14,6 +14,9 @@ class UserDetails extends Component {
     };
   }
 
+  // handleBudget = () => {
+  // }
+
   handleInputChange = e => {
     e.preventDefault();
 
@@ -32,21 +35,17 @@ class UserDetails extends Component {
 
   renderRedirect = () => {
     if (this.state.redirect) {
-
       return <Redirect to={{
         pathname: '/events',
-        state: this.state
+        state: this.state,
       }}
       />
-
     }
   };
 
   handleUserInputData = () => {
     const dbRef = firebase.database().ref("userData");
-
     dbRef.set(this.state)
-
     console.log(this.state);
   };
 

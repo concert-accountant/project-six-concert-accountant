@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-// import ReactDOM from "react-dom";
 import Search from "./Search";
 import axios from "axios";
-// import Modal from "./Modal";
 import firebase from "../firebase";
 import NavBar from "./NavBar";
+import { Redirect } from "react-router-dom";
 
 class Events extends Component {
   constructor() {
@@ -21,14 +20,12 @@ class Events extends Component {
       location: "Toronto",
       classification: "music",
       query: "&keyword=",
-      priceInfo: "",
-      minPrice: 0,
-      maxPrice: 1,
+      currentBudget: 0,
       test: [],
       userInput: "",
       searchTerms: "",
       noResult: "",
-      isShowing: false
+      isShowing: false,
     };
   }
 
@@ -62,6 +59,7 @@ class Events extends Component {
         //call filterResults Function to filter through the array and only return desired items
         this.filterResults();
         console.log("new results array", this.state.filteredEvents);
+        console.log(this.props.location.state.budget);
       })
       .catch(() => {
         this.setState({
@@ -115,27 +113,40 @@ class Events extends Component {
 
   //Function to push userInput data to Firebase
   handleClick = event => {
-    // e.preventDefault();
+    // event.preventDefault();
     const dbRef = firebase.database().ref("eventList");
     dbRef.push(event);
+    this.setState({
+      currentBudget: event.priceRanges[0].min + this.state.currentBudget
+    });
   };
 
-  //Modal Functions to Show and Hide
-  // openModal = () => {
-  //   this.setState({
-  //     isShowing: true
-  //   });
-  // };
-
-  // closeModal = () => {
-  //   this.setState({
-  //     isShowing: false
-  //   });
-  // };
+  budgetCheck = () => {
+    if (this.state.currentBudget > this.props.location.state.budget) {
+      alert("Yo you dummy you spent too much dudzes");
+      if (this.state.redirect) {
+        return (
+          <Redirect
+            to={{
+              pathname: "/myList",
+              state: this.state
+            }}
+          />
+        );
+      }
+    } else {
+      console.log("your budget is:", this.state.currentBudget);
+    }
+  };
 
   //functions and data to run when component loads
   componentDidMount() {
     this.getEvents(this.state.url);
+  }
+
+  componentDidUpdate() {
+    this.budgetCheck();
+    console.log(this.state.currentBudget);
   }
 
   render() {
@@ -154,11 +165,6 @@ class Events extends Component {
           <div className="events">
             {this.state.isLoading ? (
               <p className="loading">...LOADING</p>
-              // <div class="spinner">
-              //   <div class="bounce1"></div>
-              //   <div class="bounce2"></div>
-              //   <div class="bounce3"></div>
-              // </div>
             ) : (
               this.state.filteredEvents.map(event => {
                 return (
@@ -200,7 +206,12 @@ class Events extends Component {
                         </p>
                       )}
                       <button
-                        value={event.name}
+                        disabled={
+                          this.state.currentBudget >
+                          this.props.location.state.budget
+                        }
+                        className="addItem"
+                        // value={event.name}
                         onClick={() => this.handleClick(event)}
                       >
                         Add Item
