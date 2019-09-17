@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 class NavBar extends Component {
     render() {
+        // const { location } =this.props;
         return (
                 <nav className="navBar">
                     <h4><span>Concert</span> Accountant</h4>
