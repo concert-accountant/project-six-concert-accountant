@@ -23,6 +23,10 @@ class UserList extends Component {
     dbRef.push(userDataObject);
     // console.log(userDataObject);
     
+    const removeRef = firebase.database().ref("eventList")
+    removeRef.remove();
+
+    
   };
 
   componentDidMount() {
@@ -55,13 +59,14 @@ class UserList extends Component {
   render() {
     return (
       <React.Fragment>
+      <main>
         <NavBar />
-      <div className="wrapper">
-          <h2>User List</h2>
-          <div>
+      <div className="search wrapper">
+          <h2>User <span> List</span></h2>
+          <div className="events">
             {this.state.test.map(event => {
               return (
-                <li className="eventContainer" key={event.key}>
+                <div className="eventContainer" key={event.key}>
 
                   <div className="imageContainer">
                     <img src={event.name.images[2].url} alt={event.name.name} />
@@ -76,7 +81,7 @@ class UserList extends Component {
                   </button>
                   </div>
                   
-                </li>
+                </div>
               );
             })}
             <div>
@@ -86,6 +91,7 @@ class UserList extends Component {
           </div>
         {/* {console.log(this.state.test)} */}
       </div>
+      </main>
       </React.Fragment>
     );
     

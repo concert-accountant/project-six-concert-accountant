@@ -5,7 +5,7 @@ class Footer extends Component {
     return (
       <footer>
         {" "}
-        Created by:{" "}
+        Created by: {" "} 
         <a
           href="http://www.twitter.com/developer_matt/"
           target="_blank"
@@ -32,7 +32,7 @@ class Footer extends Component {
         >
           Jeff
         </a>
-        , and {"  "}
+        , and  {"  "}
         <a
           href="http://www.twitter.com/PritikaRoy/"
           target="_blank"
@@ -41,7 +41,7 @@ class Footer extends Component {
         >
           Pritika
         </a>{" "}
-         API provided by{" "}
+          API provided by{" "} 
         <a
           href="https://developer.ticketmaster.com/products-and-docs/apis/getting-started/"
           target="_blank"

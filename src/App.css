@@ -77,6 +77,7 @@ h1 {
 h2 {
   font-size: 3rem;
   margin-bottom: 20px;
+  margin-top: 30px;
 }
 
 .infoContainer h3 {
@@ -115,6 +116,10 @@ header span {
 }
 
 .navBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -242,7 +247,7 @@ background: rgb(0, 0, 0);
 }
 
 .search {
-  height: 300px;
+  /* height: 300px; */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -375,19 +380,65 @@ p.loading {
   font-weight: 700;
 }
 
+/* User Lists & Published Lists Styling */
+
+.removeButton {
+  border: none;
+  background-color: #87C08D;
+  color: white;
+  border-radius: 40px;
+  width: 150px;
+  padding: 10px 20px;
+}
+
+.publishButton {
+  border: none;
+  background-color: #87C08D;
+  color: white;
+  border-radius: 40px;
+  width: 150px;
+  padding: 10px 20px;
+  position: fixed;
+  bottom: 50px;
+  right: 0;
+}
+
+.user {
+  color: #fff;
+}
+.publishedEvents {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 40px;
+}
+
+.publishContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: #fff;
+  color: #436775;
+  border-radius: 10px;
+  width: 385px;
+  margin-bottom: 25px;
+  padding: 5px;
+}
+
+
 /*Footer Styling */
 footer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  text-align: center;
   background: #436775;
   color: white;
   padding: 10px;
+  
 }
 
 footer a {
   color: #87c08d;
   text-decoration: none;
+
 }
 
 /* Loading Spinner */
