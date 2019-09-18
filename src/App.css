@@ -91,6 +91,20 @@ h2 {
   font-weight: 700;
 }
 
+.user {
+  font-size: 1.4rem;
+  text-transform: uppercase;
+  line-height: 1.8rem;
+}
+
+.publishContainer h4 {
+  font-size: 1.4rem;
+}
+
+.publishContainer {
+  font-size: 1.2rem;
+}
+
 footer {
   font-size: .8rem;
 }
@@ -167,7 +181,7 @@ header span {
 
 main {
   background-image: url("./assets/backgroundImage.jpg");
-  min-height: 500px;
+  min-height: 800px;
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
@@ -380,16 +394,8 @@ p.loading {
   font-weight: 700;
 }
 
-/* User Lists & Published Lists Styling */
+/* User Lists Styling */
 
-.removeButton {
-  border: none;
-  background-color: #87C08D;
-  color: white;
-  border-radius: 40px;
-  width: 150px;
-  padding: 10px 20px;
-}
 
 .publishButton {
   border: none;
@@ -399,32 +405,89 @@ p.loading {
   width: 150px;
   padding: 10px 20px;
   position: fixed;
-  bottom: 50px;
-  right: 0;
+  top: 80px;
+  right: 10px;
 }
 
+/* Published List Styling */
+
 .user {
+  border: 2px solid #436775;
+  border-bottom: none;
   color: #fff;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.6);
+  text-align: center;
+  width: 100%;
+  /* flex-direction: column; */
+}
+
+.user span {
+  color: #91f39a;
+}
+
+.fullList{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 20px; 
 }
 .publishedEvents {
+  border: 2px solid #436775;
+  border-top: none;
+  background: rgba(0, 0, 0, 0.4);
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-  margin-top: 40px;
+  justify-content: space-evenly;
+  margin: auto;
+  width: 100%;
+  padding-top: 40px;
 }
 
 .publishContainer {
+  min-height: 180px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
+  align-items: center;
   background: #fff;
   color: #436775;
   border-radius: 10px;
-  width: 385px;
+  width: 400px;
   margin-bottom: 25px;
   padding: 5px;
+  
 }
 
+.publishContainer h4 {
+  text-align: center;
+}
+
+.publishContainer span {
+  color: #0cb41c;
+  font-weight: 700;
+}
+
+
+.publishContainer p {
+  text-transform: uppercase;
+}
+
+.publishContainer a {
+  text-decoration: none;
+  text-align: center;
+  color: #fff;
+  padding: 5px 0;
+  border-radius: 20px;
+  width: 50%;
+  background: #87c08d;
+}
+
+.publishContainer a:hover {
+  background: #CBFCF0;
+}
 
 /*Footer Styling */
 footer {

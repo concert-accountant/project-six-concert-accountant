@@ -64,19 +64,20 @@ render() {
             console.log(list);
             
             return (
-              <div key={list.key}>
-                <h3 className="user">User Name: {list.eventList.userName}</h3>
-                <h3 className="user">List Name: {list.eventList.listName}</h3>
+              <div className="fullList" key={list.key}>
+                <div className="user">
+                <h3>User Name: <span>{list.eventList.userName}</span></h3>
+                <h3>List Name: <span>{list.eventList.userList}</span></h3>
+                <h3>Budget: <span>${list.eventList.userBudget}</span></h3>
+                </div>
                 <div className="publishedEvents">
                 {list.eventList.eventsList.map(details => {
                   return(
                     <div className="publishContainer" key={details.key + i}>
-                      <h3>Event Name: {details.name.name}</h3>
-                      <p>Price: $ {details.name.priceRanges[0].min}</p>
-                      <a href={details.name.url}>Event Link on Ticketmaster</a>
-                      {/* <div className="imageContainer">
-                        <img src={details.name.images[2].url} alt={details.name.name} />
-                      </div> */}
+                      <h4>{details.name.name}</h4>
+                      <p>Date: {details.name.dates.start.localDate}</p> 
+                      <p>Price: $<span>{details.name.priceRanges[0].min}</span></p>
+                      <a href={details.name.url}>Ticketmaster Link</a>
                     </div>
                   )
                 })}

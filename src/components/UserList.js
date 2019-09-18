@@ -69,17 +69,32 @@ class UserList extends Component {
                   <div className="imageContainer">
                     <img src={event.name.images[2].url} alt={event.name.name} />
                   </div>
-                  
+                  <div className="infoContainer">
                   <h3>Event Name: {event.name.name}</h3>
-                  <p>Price: $ {event.name.priceRanges[0].min}</p>
                   <a href={event.name.url}>Event Link on Ticketmaster</a>
-                  
-                  <div>
+                  <div className="dataContainer">
+                      <p>
+                        <span>Genre:</span>{" "}
+                        {event.name.classifications[0].genre.name}
+                      </p>
+                      <p>
+                        <span>Date:</span> {event.name.dates.start.localDate}
+                      </p>
+                      <p>
+                        <span>Time:</span> {event.name.dates.start.localTime}
+                      </p>
+                      <p>
+                        <span>Venue:</span> {event.name._embedded.venues[0].name}
+                      </p>
+                  </div>
+                  </div>
+                  <div className="budgetInputs">
+                    <p>Price: <span>${event.name.priceRanges[0].min}</span></p>
                     <button className="removeButton" onClick={() => this.removeTestItem(event.key)}>Remove Item
                   </button>
                   </div>
-                  
                 </div>
+                  
               );
             })}
             <div>
