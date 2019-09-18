@@ -117,7 +117,7 @@ class UserList extends Component {
                   </div>
                   <div className="budgetInputs">
                     <p>Price: <span>${event.name.priceRanges[0].min}</span></p>
-                    <button className="removeButton" onClick={() => this.removeTestItem(event.key)}>Remove Item
+                    <button className="removeButton" onClick={() => this.removeTestItem(event)}>Remove Item
                   </button>
                   </div>
                 </div>
