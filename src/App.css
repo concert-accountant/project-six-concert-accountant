@@ -37,12 +37,15 @@ body {
   /* text-shadow: 1px 1px #000; */
   padding: 20px 40px;
   border-radius: 40px;
+  margin-bottom: 12px;
+  border: 1px solid #87C08D;
 }
 
 .formSubmit:hover {
   color: #436775;
   background-color: #CBFCF0;
   transition: transform 1.3s ease-in-out;
+  border: 1px solid #436775;
 }
 
 .searchButton {
@@ -69,9 +72,12 @@ h1, h2, h3, h4 {
   font-weight: 700;
 }
 
+h1, h2 {
+  letter-spacing: .2rem;
+}
+
 h1 {
   font-size: 4rem;
-  letter-spacing: .2rem;
 }
 
 h2 {
@@ -200,6 +206,7 @@ main {
   /* width: 500px; */
   text-align: center;
   padding: 12px;
+  /* padding-top: 0; */
   color: #87C08D;
   line-height: 1rem;
 }
@@ -258,6 +265,7 @@ background: rgb(0, 0, 0);
 .noResults {
   text-align: center;
   color: red;
+
 }
 
 .search {
@@ -289,13 +297,15 @@ background: rgb(0, 0, 0);
 
 h3.searchResults {
   color: white;
+  padding-top: 28px;
 }
 
 .events {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
-  margin-top: 40px;
+  margin: 40px 0;
+  width: 100%;
 }
 
 p.loading {
@@ -349,10 +359,12 @@ p.loading {
   border-radius: 20px;
   text-align: center;
   width: 60%;
+  border: 1px solid transparent;
 }
 
 .infoContainer a:hover {
   background: #CBFCF0;
+  border: 1px solid #436775;
 }
 
 .imageContainer img {
@@ -399,14 +411,18 @@ p.loading {
 
 .publishButton {
   border: none;
+  border: 1px solid #87C08D;
   background-color: #87C08D;
   color: white;
   border-radius: 40px;
   width: 150px;
   padding: 10px 20px;
-  position: fixed;
-  top: 80px;
-  right: 10px;
+}
+
+.publishButton:hover {
+  background: #CBFCF0;
+  color: #436775;
+  border: 1px solid #436775;
 }
 
 /* Published List Styling */
@@ -481,12 +497,15 @@ p.loading {
   color: #fff;
   padding: 5px 0;
   border-radius: 20px;
-  width: 50%;
+  width: 60%;
   background: #87c08d;
+  border: 1px solid #87c08d;
 }
 
 .publishContainer a:hover {
   background: #CBFCF0;
+  color: #436775;
+  border: 1px solid #436775;
 }
 
 /*Footer Styling */
