@@ -41,7 +41,7 @@ class Footer extends Component {
         >
           Pritika
         </a>{" "}
-          API provided by{" "} 
+          | API provided by{" "} 
         <a
           href="https://developer.ticketmaster.com/products-and-docs/apis/getting-started/"
           target="_blank"

@@ -72,7 +72,7 @@ h1, h2, h3, h4 {
   font-weight: 700;
 }
 
-h1, h2 {
+h1, h2, h3.searchResults {
   letter-spacing: .2rem;
 }
 
@@ -83,7 +83,8 @@ h1 {
 h2 {
   font-size: 3rem;
   margin-bottom: 20px;
-  margin-top: 30px;
+  margin-top: 40px;
+  padding-top: 20px;
 }
 
 .infoContainer h3 {
@@ -123,6 +124,7 @@ header {
   background-size: cover;
   background-repeat: no-repeat;
   height: 100vh;
+  /* min-height: 740px; */
 }
 
 header h1 {
@@ -160,11 +162,13 @@ header span {
 .navBar ul {
   display: flex;
   text-decoration: none;
+  align-items: center;
 }
 
 .navBar li {
   padding: 8px;
   margin: 0 4px;
+  text-align: center;
 }
 
 .navBar li:hover {
@@ -304,7 +308,7 @@ h3.searchResults {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
-  margin: 40px 0;
+  margin-top: 40px;
   width: 100%;
 }
 
@@ -523,45 +527,84 @@ footer a {
 
 }
 
-/* Loading Spinner */
-.spinner {
-  margin: 100px auto 0;
-  width: 70px;
-  text-align: center;
-}
+/*RESPONSIVE */
+@media (min-width: 1400px) {}
+/* Portrait tablet and small desktops */
+@media (max-width: 940px){}
+/* Landscape phone to portrait tablet */
+@media (max-width: 768px){
 
-/* .spinner > div {
-  width: 18px;
-  height: 18px;
-  background-color: #fff;
-
-  border-radius: 100%;
-  display: inline-block;
-  -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
-  animation: sk-bouncedelay 1.4s infinite ease-in-out both;
-}
-
-.spinner .bounce1 {
-  -webkit-animation-delay: -0.32s;
-  animation-delay: -0.32s;
-}
-
-.spinner .bounce2 {
-  -webkit-animation-delay: -0.16s;
-  animation-delay: -0.16s;
-}
-
-@-webkit-keyframes sk-bouncedelay {
-  0%, 80%, 100% { -webkit-transform: scale(0) }
-  40% { -webkit-transform: scale(1.0) }
-}
-
-@keyframes sk-bouncedelay {
-  0%, 80%, 100% { 
-    -webkit-transform: scale(0);
-    transform: scale(0);
-  } 40% { 
-    -webkit-transform: scale(1.0);
-    transform: scale(1.0);
+  h2 {
+    font-size: 2.8rem;
   }
-} */
+  .publishContainer {
+    width: 300px;
+  }
+}
+
+@media (max-width: 530px) {
+
+  html {
+    font-size: 100%;
+  }
+
+  header {
+    height: 100vh;
+  }
+
+  .userInputForm {
+    width: 400px;
+  }
+
+  .formSubmit {
+    padding: 18px 32px;
+  }
+}
+/* Landscape phones and down */
+@media (max-width: 430px){
+
+  h1 {
+    font-size: 3.6rem;
+  }
+
+  .navBar a {
+    font-size: 0.8rem;
+  }
+
+  .userInputForm {
+    width: 360px;
+  }
+
+  .publishContainer {
+    width: 260px;
+  }
+}
+
+/*Responsive Media Query Only */
+@media (max-width: 375px) {
+  html {
+    font-size: 90%;
+  }
+
+  h2 {
+    font-size: 2.4rem;
+  }
+
+  .userInputForm {
+    width: 320px;
+  }
+
+  .eventContainer {
+    width: 300px;
+  }
+}
+
+/* Small Phones and down */
+@media (max-width: 340px) {
+  h1 {
+    font-size: 3.4rem;
+  }
+  .userInputForm {
+    width: 290px;
+  }
+}
