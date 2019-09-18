@@ -31,7 +31,7 @@ class Events extends Component {
     };
   }
 
-  //axios call to get initial array of events based on city
+  //function to take snapshot of database, and make axios call and filter the results
   getEvents = url => {
     let budget = "";
     firebase
@@ -40,7 +40,6 @@ class Events extends Component {
       .once("value")
       .then(snapshot => {
         budget = snapshot.val().budget;
-        // console.log("snapshot budget", snapshot.val().budget);
 
         axios({
           method: "GET",
@@ -55,7 +54,6 @@ class Events extends Component {
           .then(results => {
             if (results.length !== 0) {
               results = results.data._embedded.events;
-              // results.length = 10;
               this.setState({
                 events: results,
                 isLoading: false,
@@ -70,8 +68,6 @@ class Events extends Component {
             }
             //call filterResults Function to filter through the array and only return desired items
             this.filterResults();
-            // console.log("new results array", this.state.filteredEvents);
-            // console.log(this.props.location.state.budget);
           })
           .catch(() => {
             this.setState({
@@ -102,7 +98,6 @@ class Events extends Component {
     this.setState({
       searchTerms: event.target.value
     });
-    // console.log(this.state.searchTerms);
   };
 
   //function to handle form submit and show results in search component
@@ -119,54 +114,37 @@ class Events extends Component {
       },
       () => {
         this.getEvents(this.state.url);
-        // console.log("updated url", this.state.url);
       }
     );
   };
 
-  //Function to push userInput data to Firebase
+  //Function to push userInput data to Firebase and increase users budget as they add items
   handleClick = event => {
-    // console.log(event.priceRanges[0].min);
     if (
       event.priceRanges[0].min + this.state.currentBudget >
       this.state.targetBudget
     ) {
       this.setState({
-        redirect: true,
-        // currentBudget: event.priceRanges[0].min + this.state.currentBudget
+        redirect: true
       });
     } else {
-      this.setState({
-        currentBudget: event.priceRanges[0].min + this.state.currentBudget,
-      }, () => {
+      this.setState(
+        {
+          currentBudget: event.priceRanges[0].min + this.state.currentBudget
+        },
+        () => {
           const dbRef = firebase.database().ref("eventList");
           dbRef.push(event);
           const budgetRef = firebase.database().ref("currentBudget");
           budgetRef.set(this.state.currentBudget);
-      });
-      
+        }
+      );
     }
-    //if below is greater than .location.budget
-    //set redirect to true
-    // this.setState({
-    //   currentBudget: event.priceRanges[0].min + this.state.currentBudget
-    // redirect:
-    // });
-    //else
-    // this.setState({
-    //   currentBudget: event.priceRanges[0].min + this.state.currentBudget
-    // });
   };
 
-  // setRedirect = () => {
-  //   this.setState({
-  //     redirect: true
-  //   });
-  // };
-
+  //function to redirect to to the users list when they have reach their budget
   budgetCheck = () => {
     if (this.state.redirect) {
-      // alert("Yo you dummy you spent too much dudzes");
       return (
         <Redirect
           to={{
@@ -176,12 +154,9 @@ class Events extends Component {
         />
       );
     }
-    // else {
-    //   console.log("your budget is:", this.state.currentBudget);
-    // }
   };
 
-  //functions and data to run when component loads
+  //get event function and snapshot of database to save budget on page changes
   componentDidMount() {
     this.getEvents(this.state.url);
 
@@ -194,18 +169,11 @@ class Events extends Component {
         previousBudget = snapshot.val();
         this.setState({
           currentBudget: previousBudget
-        })
-      })
+        });
+      });
   }
-
-  // componentDidUpdate() {
-  //   this.budgetCheck();
-  //   console.log(this.state.currentBudget);
-  // }
-
+  //render displays our components and maps through events array to display results
   render() {
-    console.log("your budget is:", this.state.currentBudget);
-    console.log("budget", this.state.targetBudget);
     return (
       <main>
         <NavBar location={this.props.location.state} />
@@ -230,7 +198,14 @@ class Events extends Component {
                     </div>
                     <div className="infoContainer">
                       <h3>{event.name}</h3>
-                      <a href={event.url}>Visit Ticketmaster</a>
+                      <a
+                        href={event.url}
+                        target="_blank"
+                        aria-label="go to Ticketmaster's website."
+                        rel="noopener noreferrer"
+                      >
+                        Visit Ticketmaster
+                      </a>
                       <div className="dataContainer">
                         <p>
                           <span>Genre:</span>{" "}
@@ -267,7 +242,6 @@ class Events extends Component {
                           this.state.currentBudget > this.state.targetBudget
                         }
                         className="addItem"
-                        // value={event.name}
                         onClick={() => this.handleClick(event)}
                       >
                         Add Item
@@ -279,8 +253,6 @@ class Events extends Component {
             )}
           </div>
         </div>
-
-        <div></div>
       </main>
     );
   }

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import firebase from "../firebase";
-import NavBar from "./NavBar";
 
 class UserDetails extends Component {
   constructor() {
@@ -15,41 +14,47 @@ class UserDetails extends Component {
     };
   }
 
+  //function to save information to state when form is submitted
   handleInputChange = e => {
     e.preventDefault();
-
     this.setState({
       [e.target.name]: e.target.value
     });
   };
 
+  //function to toggle redirect to allow next page to load on form submit
   setRedirect = () => {
     this.setState({
       redirect: true
     });
-
     this.handleUserInputData();
   };
 
+  //function that redirects to next page
   renderRedirect = () => {
     if (this.state.redirect) {
-      return <Redirect to={{
-        pathname: '/events',
-        state: this.state,
-      }}
-      />
+      return (
+        <Redirect
+          to={{
+            pathname: "/events",
+            state: this.state
+          }}
+        />
+      );
     }
   };
 
+  //pushes user data to firebase once form is submitted
   handleUserInputData = () => {
     const dbRef = firebase.database().ref("userData");
-    dbRef.set(this.state)
-    console.log(this.state);
+    dbRef.set(this.state);
   };
+
+  //clear user details from firebase when component unmounts
   componentWillUnmount() {
-    const removeRef = firebase.database().ref("eventList")
+    const removeRef = firebase.database().ref("eventList");
     removeRef.remove();
-    const removeBudgetRef = firebase.database().ref("currentBudget")
+    const removeBudgetRef = firebase.database().ref("currentBudget");
     removeBudgetRef.set(0);
   }
 
@@ -57,10 +62,11 @@ class UserDetails extends Component {
     return (
       <form className="userInputForm" onSubmit={this.setRedirect}>
         <p>
-          Create a list of your favourite shows in and around Toronto to fit your budget.
+          Create a list of your favourite shows in and around Toronto to fit
+          your budget.
         </p>
         <p>Fill out your details and let's get started!</p>
-        
+
         <label htmlFor="userName" className="visuallyHidden">
           Name
         </label>

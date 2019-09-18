@@ -5,7 +5,9 @@ class Search extends Component {
     const { value, searchInput, searchSubmit } = this.props;
     return (
       <div className="search">
-        <h2>Search <span>Events</span></h2>
+        <h2>
+          Search <span>Events</span>
+        </h2>
         <form className="searchBar" onSubmit={searchSubmit}>
           <label htmlFor="userSearch" className="visuallyHidden">
             Search Events
@@ -22,8 +24,6 @@ class Search extends Component {
             Find Events
           </button>
         </form>
-
-        {/* <h2>`{this.state.userName}'s Results`</h2>  */}
         <h3 className="searchResults">Events:</h3>
       </div>
     );

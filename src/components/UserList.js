@@ -3,31 +3,31 @@ import firebase from "../firebase";
 import NavBar from "./NavBar";
 
 class UserList extends Component {
-  constructor() { 
+  constructor() {
     super();
     this.state = {
       test: [],
       userInput: "",
       currentBudget: ""
-    }
+    };
   }
-  
-  
+
+  //push user data to firebase and allows removing items from firebase
   publishList = (test, userData) => {
     const userDataObject = {
       userName: userData.userName,
       userList: userData.listName,
       userBudget: userData.budget,
       eventsList: test
-    }
-    const dbRef = firebase.database().ref("publishList")
+    };
+    const dbRef = firebase.database().ref("publishList");
     dbRef.push(userDataObject);
-    // console.log(userDataObject);
-    
-    const removeRef = firebase.database().ref("eventList")
+
+    const removeRef = firebase.database().ref("eventList");
     removeRef.remove();
   };
 
+  //on mount take firebase data, take snapshot, and set states for user details
   componentDidMount() {
     const eventRef = firebase.database().ref("eventList");
     eventRef.on("value", response => {
@@ -37,22 +37,19 @@ class UserList extends Component {
         newState.push({ key: key, name: data[key] });
       }
       const userRef = firebase.database().ref("userData");
-      userRef.once("value").then((snapshot) => {
-        const userData = snapshot.val()
-        console.log(userData)
+      userRef.once("value").then(snapshot => {
+        const userData = snapshot.val();
         this.setState({
           test: newState,
           userData: userData
         });
-      })      
+      });
     });
-    
   }
 
+  //function to remove items from user list
   removeTestItem = testItemId => {
-    console.log("THE TEST ITEM ID OBJECT", testItemId.name.priceRanges[0].min);
     let removedPrice = testItemId.name.priceRanges[0].min;
-
     let snapshotBudget = "";
     firebase
       .database()
@@ -60,28 +57,22 @@ class UserList extends Component {
       .once("value")
       .then(snapshot => {
         snapshotBudget = snapshot.val();
-        this.setState({
-          currentBudget: snapshotBudget - removedPrice
-        }, 
-        // () => {
-        //   this.setState({
-        //     currentBudget: currentBudget - testItemId.priceRanges[0].min
-        //   },
+        this.setState(
+          {
+            currentBudget: snapshotBudget - removedPrice
+          },
           () => {
-              const budgetRef = firebase.database().ref("currentBudget");
-              budgetRef.set(this.state.currentBudget);
+            const budgetRef = firebase.database().ref("currentBudget");
+            budgetRef.set(this.state.currentBudget);
 
-              const dbRef = firebase.database().ref("eventList");
-              dbRef.child(testItemId.key).remove();
-            });
-        console.log("This is the removed item budget", this.state.currentBudget);
-        // });
-        
-      })
-  }
+            const dbRef = firebase.database().ref("eventList");
+            dbRef.child(testItemId.key).remove();
+          }
+        );
+      });
+  };
 
   render() {
-    // const { location } = this.props;
     return (
       <React.Fragment>
         <main>
@@ -113,7 +104,14 @@ class UserList extends Component {
                     </div>
                     <div className="infoContainer">
                       <h3>Event Name: {event.name.name}</h3>
-                      <a href={event.name.url}>Ticketmaster Link</a>
+                      <a
+                        href={event.name.url}
+                        target="_blank"
+                        aria-label="go to Ticketmaster's website."
+                        rel="noopener noreferrer"
+                      >
+                        Ticketmaster Link
+                      </a>
                       <div className="dataContainer">
                         <p>
                           <span>Genre:</span>{" "}
@@ -146,12 +144,10 @@ class UserList extends Component {
                 );
               })}
             </div>
-            {/* {console.log(this.state.test)} */}
           </div>
         </main>
       </React.Fragment>
     );
-    
   }
 }
 export default UserList;

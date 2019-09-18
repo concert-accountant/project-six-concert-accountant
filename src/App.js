@@ -1,19 +1,16 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import NavBar from "./components/NavBar";
 import Home from "./components/Home";
 import Events from "./components/Events";
 import UserList from "./components/UserList";
 import PublishedLists from "./components/PublishedLists";
 import Footer from "./components/Footer";
-// import firebase from "./firebase"
 import "./App.css";
 
 class App extends Component {
   render() {
     return (
       <Router>
-        
         <div className="App">
           <Switch>
             <Route exact path="/" component={Home} />
@@ -21,7 +18,7 @@ class App extends Component {
             <Route path="/publishedLists" component={PublishedLists} />
             <Route path="/events" component={Events} />
           </Switch>
-            <Footer />
+          <Footer />
         </div>
       </Router>
     );
