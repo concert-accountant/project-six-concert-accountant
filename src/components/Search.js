@@ -24,7 +24,7 @@ class Search extends Component {
         </form>
 
         {/* <h2>`{this.state.userName}'s Results`</h2>  */}
-        <h3 className="searchResults">Search Results</h3>
+        <h3 className="searchResults">Events:</h3>
       </div>
     );
   }

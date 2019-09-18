@@ -57,8 +57,7 @@ class UserDetails extends Component {
     return (
       <form className="userInputForm" onSubmit={this.setRedirect}>
         <p>
-          Create a list of your favourite shows in and around Toronto that fits
-          your budget.
+          Create a list of your favourite shows in and around Toronto to fit your budget.
         </p>
         <p>Fill out your details and let's get started!</p>
         
@@ -80,7 +79,7 @@ class UserDetails extends Component {
         <input
           type="text"
           id="list"
-          placeholder="List Name"
+          placeholder="List Title"
           name="listName"
           onChange={this.handleInputChange}
           required
