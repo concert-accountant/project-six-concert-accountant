@@ -40,7 +40,7 @@ class Events extends Component {
       .once("value")
       .then(snapshot => {
         budget = snapshot.val().budget;
-        console.log("snapshot budget", snapshot.val().budget);
+        // console.log("snapshot budget", snapshot.val().budget);
 
         axios({
           method: "GET",
@@ -126,24 +126,25 @@ class Events extends Component {
 
   //Function to push userInput data to Firebase
   handleClick = event => {
-    // event.preventDefault();
-    const dbRef = firebase.database().ref("eventList");
-    dbRef.push(event);
-    const budgetRef = firebase.database().ref("currentBudget");
-    budgetRef.set(this.state.currentBudget);
-
+    // console.log(event.priceRanges[0].min);
     if (
       event.priceRanges[0].min + this.state.currentBudget >
       this.state.targetBudget
     ) {
       this.setState({
         redirect: true,
-        currentBudget: event.priceRanges[0].min + this.state.currentBudget
+        // currentBudget: event.priceRanges[0].min + this.state.currentBudget
       });
     } else {
       this.setState({
-        currentBudget: event.priceRanges[0].min + this.state.currentBudget
+        currentBudget: event.priceRanges[0].min + this.state.currentBudget,
+      }, () => {
+          const dbRef = firebase.database().ref("eventList");
+          dbRef.push(event);
+          const budgetRef = firebase.database().ref("currentBudget");
+          budgetRef.set(this.state.currentBudget);
       });
+      
     }
     //if below is greater than .location.budget
     //set redirect to true
@@ -183,6 +184,18 @@ class Events extends Component {
   //functions and data to run when component loads
   componentDidMount() {
     this.getEvents(this.state.url);
+
+    let previousBudget = "";
+    firebase
+      .database()
+      .ref("currentBudget")
+      .once("value")
+      .then(snapshot => {
+        previousBudget = snapshot.val();
+        this.setState({
+          currentBudget: previousBudget
+        })
+      })
   }
 
   // componentDidUpdate() {
